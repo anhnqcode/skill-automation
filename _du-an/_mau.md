@@ -55,7 +55,7 @@ Template để "—" thì skill dùng bản trong `_mau-chung/` của Skill BA.
 | Khóa | Giá trị |
 |:---|:---|
 | File điều phối checklist | — (chưa có thì `/viet-testcase` hỏi và tạo) |
-| Thư mục checklist dùng chung | — (để trống thì dùng `<SKILL_BA>/_mau-chung/checklist/` nếu có) |
+| Thư mục checklist dùng chung | <SKILL_BA>/_mau-chung/checklist (bộ chuẩn dùng chung, chỉ đổi khi dự án có bộ riêng) |
 | Template testcase | — |
 | Mẫu bảng testcase | — (bỏ trống thì skill dò theo file testcase có sẵn của dự án, không có thì dùng `_mau-chung/Testcase_Mau-bang-mac-dinh.md`) |
 | Nơi đặt file testcase | Cạnh SRS: `<tên>.test.md`, `<tên>.auto.md`, `<tên>.note.md` |

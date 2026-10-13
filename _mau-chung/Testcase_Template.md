@@ -361,6 +361,7 @@ Khi người yêu cầu cung cấp bảng đặc tả trường dữ liệu (d�
 - Bỏ trống điều kiện lọc (không chọn) — danh sách hiển thị toàn bộ dữ liệu theo mặc định, không bị lọc nhầm
 - Điều kiện lọc dạng khoảng (khoảng ngày, khoảng số) — lọc đúng tại biên (bằng giá trị đầu/cuối khoảng), lọc đúng khi khoảng rỗng hoặc khoảng không hợp lệ (giá trị đầu lớn hơn giá trị cuối)
 - Điều kiện lọc dạng nhập tay (ô nhập liệu lọc theo mã, theo tên...) — áp dụng đầy đủ checklist liên quan tại Mục 5.1 (khoảng trắng, ký tự đặc biệt, chữ hoa/thường) trong ngữ cảnh lọc dữ liệu
+- Trường đang lọc cho một bản ghi mang nhiều giá trị (một hồ sơ có nhiều nền tảng, một sản phẩm thuộc nhiều nhóm): bản ghi hiện ở mọi giá trị nó mang, chọn Tất cả thì không bị đếm hai lần
 
 ### 4.2. Kết hợp nhiều điều kiện lọc đồng thời
 - Áp dụng đồng thời 2 điều kiện lọc trở lên — kết quả trả về đúng giao (AND) của tất cả điều kiện đã chọn, không phải hợp (OR) trừ khi nghiệp vụ yêu cầu khác
@@ -416,6 +417,7 @@ Khi người yêu cầu cung cấp bảng đặc tả trường dữ liệu (d�
 - Trong lúc đang tìm kiếm — hiển thị indicator loading/spinner rõ ràng, danh sách không nhảy loạn hoặc hiển thị nháy
 - Gõ nhanh liên tiếp nhiều ký tự (type-ahead) — hệ thống không gửi quá nhiều request song song gây kết quả hiển thị sai thứ tự (debounce hoạt động đúng)
 - Kết quả tìm kiếm với dữ liệu lớn — phân trang vẫn hoạt động đúng, không bị thiếu bản ghi hoặc lặp bản ghi giữa các trang
+- Đổi tab, đổi kỳ, đổi bộ lọc liên tiếp trước khi lần trước tải xong: kết quả cuối cùng đúng với lựa chọn cuối, phản hồi cũ về muộn không đè lên nội dung mới
 
 ---
 
@@ -511,6 +513,7 @@ Khi người yêu cầu cung cấp bảng đặc tả trường dữ liệu (d�
 - Chọn giá trị hợp lệ
 - Chọn phần tử đầu tiên
 - Chọn phần tử cuối cùng
+- Mọi giá trị danh mục (trạng thái, loại, nền tảng) hiện bằng nhãn hiển thị, không hiện mã lưu trữ, đúng chính tả và kiểu chữ của nhãn (tên thương hiệu viết đúng kiểu chữ), ở cả dropdown, badge, bảng, tệp xuất
 
 **Xóa dữ liệu**
 - Xóa bằng nút X
@@ -693,6 +696,8 @@ Khi phân tích chức năng, đặt câu hỏi: **"Người dùng có thể th�
 - Dữ liệu vừa lưu hiển thị đúng và giống nhau ở mọi nơi có tham chiếu đến bản ghi đó (màn hình danh sách, màn hình chi tiết, các màn hình/báo cáo khác có liên kết tới bản ghi)
 - Sau khi Chỉnh sửa, dữ liệu cũ không còn xuất hiện ở bất kỳ nơi nào đang hiển thị bản ghi đó (không bị cache hiển thị dữ liệu cũ)
 - Mở đồng thời bản ghi đó trên nhiều tab/thiết bị sau khi đã lưu — tất cả đều hiển thị đúng dữ liệu mới nhất khi tải lại
+- Bản ghi hiện ở từ hai portal, vai trò hoặc nơi xuất trở lên: lập bảng đối chiếu từng trường theo Mục 27.9
+- Giá trị danh mục hiện cùng một nhãn ở mọi nơi, không nơi nào hiện mã lưu trữ thay cho nhãn
 
 ### 7.3. Toàn vẹn dữ liệu khi lưu nhiều trường/nhiều bảng liên quan
 - Lưu một bản ghi có dữ liệu liên quan đến nhiều bảng/nhiều entity (ví dụ thông tin chính và danh sách chi tiết con) — tất cả các phần đều được lưu đầy đủ, không bị thiếu phần con khi phần chính đã lưu thành công hoặc ngược lại
@@ -1060,6 +1065,12 @@ Sau khi điền Bước 1, ánh xạ từng nguyên tắc trong Mục 12.5 sang 
 - Test tại đúng ranh giới: thao tác ở **[mốc - 1 giây]**, **[đúng mốc]**, **[mốc + 1 giây]** — xác nhận trạng thái nút nhất quán ở cả 3 thời điểm, không có khoảng "vùng xám" xử lý sai (liên kết trực tiếp Mục 28.6 — Race condition tại ranh giới thời gian)
 - Trạng thái disable do hết thời gian hiển thị đúng **lý do** cho người dùng (ví dụ tooltip/label "Đã hết thời gian đặt giá") — phân biệt rõ với disable do thiếu dữ liệu (13.4) hoặc do thiếu quyền (Mục 9.2), tránh người dùng nhầm lẫn nguyên nhân
 
+### 13.6. Bật tắt nhiều cấp (cha và con)
+- Tắt cấp cha: các cấp con hiển thị đúng là đã dừng tác dụng (mờ, khóa, hoặc kèm ghi chú theo đặc tả), dù trạng thái riêng của con vẫn là bật
+- Bật lại cấp cha: các cấp con về đúng trạng thái riêng trước khi tắt cha, không tự bật hết hoặc tắt hết
+- Đổi cấp con khi cấp cha đang tắt: có cho đổi không, đổi rồi thì lưu thế nào, bật lại cha thì con theo giá trị vừa đổi
+- Kết quả nghiệp vụ (thông báo, tác vụ tự động, hiển thị phía người dùng) theo đúng tổ hợp cha và con, kiểm đủ bốn tổ hợp bật, tắt
+
 ---
 
 ## 14. Kiểm tra cấu hình (Config case)
@@ -1129,7 +1140,7 @@ Sau khi điền Bước 1, ánh xạ từng nguyên tắc trong Mục 12.5 sang 
 
 ## 17. Kiểm tra điều hướng bàn phím cơ bản (Keyboard Navigation)
 
-> Phạm vi: kiểm thử thủ công bằng phím Tab, Shift+Tab, Enter, Esc, phím mũi tên — ở mức cơ bản phục vụ trải nghiệm sử dụng hàng ngày. Không bao gồm kiểm thử Accessibility/a11y chuyên sâu theo chuẩn WCAG (screen reader, ARIA, contrast ratio...) — các nội dung đó cần quy trình và tiêu chuẩn riêng, nằm ngoài phạm vi test case thủ công này.
+> Phạm vi: kiểm thử thủ công bằng phím Tab, Shift+Tab, Enter, Esc, phím mũi tên ở mức cơ bản phục vụ trải nghiệm sử dụng hàng ngày. Trợ năng theo WCAG 2.2 mức AA (trình đọc màn hình, tương phản, phóng to) xem Mục 33.
 
 ### 17.1. Thứ tự di chuyển (Tab order)
 - Nhấn Tab di chuyển qua các trường theo đúng thứ tự hợp lý trên giao diện (trái → phải, trên → dưới, hoặc theo đúng luồng nhập liệu tự nhiên), không nhảy lộn xộn
@@ -1656,6 +1667,51 @@ Sai:   "Đã đăng nhập Partner."
 
 **Mức độ ưu tiên:** luôn là **High** — bug tích hợp xuyên module thường ảnh hưởng nghiêm trọng đến nghiệp vụ và khó phát hiện khi test từng module riêng lẻ.
 
+### 27.9. Đối chiếu dữ liệu giữa các portal và module (Data parity)
+
+> Pattern: một bản ghi được tạo hoặc sửa ở một nơi (nguồn), rồi được xem ở nhiều nơi khác (nơi nhận). Ví dụ cuộc đấu tạo ở Partner được xem ở CMS, trang khách hàng, trang chủ tài sản, tệp xuất, báo cáo, email. Lỗi hay gặp: nơi nhận thiếu trường, lấy nhầm trường, định dạng khác, dữ liệu cũ, hoặc lộ trường nội bộ.
+>
+> **Câu hỏi nhận diện:** "Bản ghi này còn hiện ở những nơi nào khác ngoài màn đang test?" Có từ hai nơi trở lên thì bắt buộc lập bảng đối chiếu.
+
+**Bước 1. Lập bảng đối chiếu trước khi viết case.** Hàng là từng trường của bản ghi ở nơi nguồn. Cột là từng nơi nhận: màn danh sách, màn chi tiết của từng portal và vai trò, tệp xuất, báo cáo, thông báo, email, API công khai. Ô ghi một trong bốn giá trị:
+
+| Ký hiệu | Nghĩa |
+|:---|:---|
+| Đ | Hiển thị đủ, cùng giá trị với nơi nguồn |
+| ĐD | Hiển thị nhưng đổi dạng có chủ đích: rút gọn, che bớt, đổi nhãn, đổi đơn vị. Ghi rõ dạng mong muốn |
+| Ẩn | Không hiển thị có chủ đích, theo đặc tả hoặc theo vai trò |
+| ? | Đặc tả không nói. Ghi câu hỏi cho BA, chưa viết kết quả mong muốn |
+
+Ví dụ:
+
+| Trường ở nguồn (Partner) | CMS danh sách | CMS chi tiết | Khách hàng chi tiết | Chủ tài sản | Tệp xuất CMS |
+|:---|:---|:---|:---|:---|:---|
+| Tên tài sản | Đ | Đ | Đ | Đ | Đ |
+| Giá khởi điểm | ĐD (rút gọn "1,2 tỷ") | Đ | Đ | Đ | Đ (số đầy đủ) |
+| Ghi chú nội bộ | Ẩn | Đ | Ẩn | Ẩn | ? |
+
+**Bước 2. Sinh case từ bảng.** Mỗi cột nơi nhận ít nhất một case kiểm tất cả ô Đ và ĐD của cột đó. Mỗi ô Ẩn có một case kiểm không lộ, kể cả qua API và tệp xuất. Mỗi ô ? là một câu hỏi chặn.
+
+**Checklist cho từng nơi nhận:**
+
+- **Đủ trường:** mọi trường bắt buộc nhập ở nguồn đều có mặt ở nơi nhận theo bảng, không mất trường nào. Trường không bắt buộc mà nguồn để trống thì nơi nhận hiện đúng giá trị trống theo đặc tả ("—", "Chưa cập nhật"), không hiện "null", "undefined", "0", "01/01/1970".
+- **Đúng giá trị:** cùng một số, cùng một ngày giờ, cùng một trạng thái ở mọi nơi. Đặc biệt kiểm: số tiền lớn, số thập phân, ngày giờ quanh 0 giờ (lệch múi giờ làm lệch ngày), giá trị chọn từ danh mục (nơi nhận hiện đúng tên, không hiện mã).
+- **Đúng nhãn trạng thái:** cùng một trạng thái nội bộ có thể mang nhãn khác nhau theo portal. Lập bảng nhãn theo từng portal và kiểm đủ mọi trạng thái, không chỉ trạng thái đang có sẵn.
+- **Đúng định dạng:** dấu phân cách hàng nghìn, đơn vị tiền, định dạng ngày, số điện thoại, nội dung soạn thảo có định dạng (xuống dòng, in đậm, danh sách, bảng) hiện giống nguồn, ký tự đặc biệt và tiếng Việt có dấu không bị lỗi.
+- **Tệp và ảnh:** đủ số lượng, đúng thứ tự, mở được, đúng tệp (không lấy nhầm tệp của bản ghi khác), ảnh đại diện đúng ảnh được chọn ở nguồn.
+- **Trường tính toán:** giá trị suy ra (tổng tiền, phần trăm, thời lượng, số người đăng ký) tính ra cùng một số ở mọi nơi. Nơi nào tự tính lại thì so với nơi nguồn.
+- **Bản ghi con và liên kết:** danh sách con (tài sản trong hồ sơ, người tham gia, tài liệu đính kèm) đủ số lượng ở mọi nơi. Liên kết sang bản ghi khác mở đúng bản ghi.
+- **Sau khi sửa ở nguồn:** mọi nơi nhận đổi theo (hoặc giữ bản đã chốt nếu đặc tả quy định "đóng băng", xem 12.5), không còn nơi nào hiện giá trị cũ, kể cả danh sách, bộ lọc, ô tìm kiếm, tệp xuất, bộ nhớ đệm.
+- **Sau khi đổi trạng thái hoặc xóa ở nguồn:** bản ghi hiện, ẩn, đổi nhãn đúng ở từng nơi nhận. Nơi nhận đang mở trang chi tiết thì lần tải lại tiếp theo thấy đúng.
+- **Theo vai trò:** cùng một nơi nhận nhưng khác vai trò thì tập trường khác nhau đúng như bảng. Gọi thẳng API của nơi nhận không trả trường bị Ẩn.
+- **Lọc, tìm, sắp xếp ở nơi nhận:** lọc và tìm theo trường lấy từ nguồn cho kết quả đúng. Số lượng bản ghi ở nơi nhận khớp với nơi nguồn theo cùng điều kiện.
+- **Dữ liệu tạo bằng nhiều đường:** bản ghi tạo bằng tay, nhập từ tệp, sao chép, tạo bằng AI, tạo qua API đều hiện đủ và đúng như nhau ở nơi nhận.
+- **Dữ liệu cũ:** bản ghi tạo trước khi thêm trường mới vẫn hiện đúng ở nơi nhận, trường mới hiện giá trị trống theo đặc tả, không làm lỗi trang.
+
+**Quy tắc viết case:** tiền điều kiện ghi rõ bản ghi nguồn với giá trị cụ thể của từng trường được kiểm. Các bước ghi rõ portal, vai trò, màn được mở. Kết quả mong muốn liệt kê từng trường và giá trị mong đợi, không viết "hiển thị đúng thông tin".
+
+**Mức độ ưu tiên:** High khi trường liên quan tiền, mốc thời gian, trạng thái, dữ liệu cá nhân, hoặc là căn cứ để người dùng ở nơi nhận ra quyết định. Còn lại Medium.
+
 ---
 
 ## 28. Kiểm tra tác vụ theo thời gian (Time-based / Schedule Testing)
@@ -1811,3 +1867,146 @@ Sai:   "Phiên đấu giá sắp kết thúc."
 - Case liên quan đến race condition (26.6) nên test ở tầng **API**, dễ kiểm soát thời điểm gửi request chính xác hơn tầng E2E
 
 **Mức độ ưu tiên:** luôn là **High** — bug time-based thường chỉ xuất hiện đúng vào thời điểm sản xuất thực tế (không phải lúc dev/test thông thường), khó tái hiện, và ảnh hưởng trực tiếp đến tính đúng đắn của nghiệp vụ cốt lõi.
+
+---
+
+## 29. Kiểm tra xác thực và phiên làm việc
+
+> Áp dụng khi chức năng có đăng nhập, quên mật khẩu, OTP, đổi mật khẩu, đăng nhập bằng tài khoản ngoài. Hết hạn phiên khi đang thao tác xem Mục 16.2.
+
+- Đăng nhập sai N lần liên tiếp: khóa tạm hoặc hiện captcha đúng đặc tả. Thông báo không cho biết sai tên đăng nhập hay sai mật khẩu.
+- Tài khoản không tồn tại và mật khẩu sai trả cùng một câu báo, cùng thời gian phản hồi.
+- Liên kết quên mật khẩu: dùng lần hai, dùng sau khi hết hạn, dùng sau khi đã đổi mật khẩu đều bị từ chối.
+- Đổi mật khẩu: kiểm mọi điều kiện độ mạnh, trùng mật khẩu cũ, xác nhận lệch. Các phiên trên thiết bị khác bị đăng xuất nếu đặc tả yêu cầu.
+- Đăng xuất rồi bấm Back hoặc dùng lại token cũ gọi API: bị từ chối, không thấy dữ liệu cũ.
+- OTP: nhập sai quá số lần, gửi lại liên tục, OTP cũ còn dùng được sau khi đã gửi OTP mới hay không, OTP hết hạn đúng thời gian.
+- Mở liên kết sâu khi chưa đăng nhập: đăng nhập xong quay về đúng trang. Tham số quay về trỏ ra tên miền lạ thì bị chặn.
+- Tài khoản bị khóa hoặc bị xóa khi đang có phiên: lần thao tác tiếp theo bị đưa về trang đăng nhập.
+
+---
+
+## 30. Kiểm tra an ninh cơ bản (theo OWASP)
+
+> Mức kiểm thủ công cho mọi chức năng có nhập liệu hoặc gọi API. Không thay cho kiểm thử xâm nhập chuyên sâu.
+
+- Gửi thêm trường không có trên form qua API (vai trò, trạng thái, giá, người tạo, mã tổ chức): hệ thống bỏ qua, không ghi đè.
+- Nội dung có mã kịch bản (thẻ script, thuộc tính onerror) lưu thành công rồi mở ở danh sách, chi tiết, email, tệp xuất, thông báo: đều hiện dạng chữ, không chạy.
+- Ép lỗi máy chủ: phản hồi không chứa stack trace, câu SQL, đường dẫn máy chủ, phiên bản thư viện.
+- Phản hồi API (danh sách, chi tiết) không trả thừa trường nhạy cảm mà giao diện không hiển thị (mật khẩu, token, số giấy tờ đầy đủ, ghi chú nội bộ).
+- Thao tác ghi gọi từ trang của tên miền khác (CSRF) bị từ chối.
+- Đổi ID trên đường dẫn hoặc trong API sang bản ghi của người khác, tổ chức khác: bị từ chối (xem thêm 9.3).
+- Gửi cùng một yêu cầu tốn tiền (SMS, email, OTP, gọi dịch vụ trả phí) liên tục: có giới hạn theo người, theo IP, theo số điện thoại.
+- Cookie phiên có HttpOnly, Secure, SameSite.
+- Tham số phân trang, sắp xếp, số dòng mỗi trang trên đường dẫn hoặc API bị sửa tay (trang âm, trang vượt tổng, số dòng rất lớn, cột sắp xếp không tồn tại): hệ thống khống chế và trả về trạng thái hợp lệ
+- Liên kết trỏ ra tên miền ngoài mở tab mới tách khỏi trang gốc (trang đích không điều khiển ngược được tab cũ), đường dẫn gửi đi không kèm mã nhạy cảm
+
+---
+
+## 31. Kiểm tra hành vi trình duyệt và biểu mẫu
+
+- Lưu xong bấm Back rồi bấm Lưu lại: không tạo bản ghi thứ hai.
+- Bấm F5 ngay sau khi gửi biểu mẫu: trình duyệt không gửi lại dữ liệu.
+- Bấm nút Lưu hai lần thật nhanh: chỉ một bản ghi được tạo.
+- Rời trang khi có thay đổi chưa lưu: có hỏi xác nhận. Chọn Ở lại thì dữ liệu còn nguyên.
+- Biểu mẫu nhiều bước: quay lại bước trước, dữ liệu bước sau còn hay bị xóa đúng đặc tả.
+- Lưu nháp: nháp không chạy kiểm tra bắt buộc của bản chính thức, không hiện ở danh sách chính thức, không gửi thông báo. Mở lại nháp sau khi danh mục đã đổi thì giá trị không còn hợp lệ được xử lý đúng.
+- Mở chi tiết bằng tab mới, sao chép đường dẫn gửi người khác có quyền: mở đúng bản ghi.
+- Chạy luồng chính trên các trình duyệt đặc tả hỗ trợ (Chrome, Edge, Safari, Firefox).
+- Đang mở trang thì hệ thống triển khai bản mới: thao tác tiếp không lỗi trắng trang, không mất dữ liệu đang nhập.
+- Lưu hai tầng: màn có nút Lưu ở từng dòng (trong popup hoặc bảng con) nằm trong một màn có nút Lưu tổng. Lưu dòng rồi bấm Hủy, đóng, hoặc hết phiên ở cấp tổng thì dòng đó còn hay mất đúng đặc tả. Nhãn trạng thái của dòng không làm người dùng tưởng đã lưu thật khi chưa lưu tổng
+
+---
+
+## 32. Kiểm tra trường có định dạng chuẩn, ngày giờ và số tiền
+
+### 32.1. Trường có định dạng chuẩn
+- Email: thiếu @, hai @, có khoảng trắng, chữ hoa (lưu thường hóa hay giữ nguyên), tên miền có dấu.
+- Số điện thoại: có +84, có 0 đầu, có dấu cách hoặc dấu chấm, sai độ dài, đầu số không tồn tại.
+- CCCD 12 số, mã số thuế 10 hoặc 13 số có gạch: đúng độ dài, chỉ chữ số, số 0 đầu không bị mất khi lưu và khi xuất Excel.
+- Đường dẫn web: thiếu http, bắt đầu bằng javascript:, có khoảng trắng.
+- Ô mật khẩu: ẩn hiện ký tự, có cho dán không, trình duyệt có tự điền nhầm chỗ không.
+
+### 32.2. Giờ và khoảng ngày
+- Từ ngày lớn hơn đến ngày, từ ngày bằng đến ngày.
+- Lọc đến ngày X có lấy bản ghi tạo lúc 23:59:59 ngày X.
+- Ô giờ: 00:00, 12:00, 23:59, định dạng 12 giờ hay 24 giờ.
+- Ngày không có giờ (ngày sinh, ngày cấp): lưu xong mở lại không bị lùi một ngày khi máy người dùng ở múi giờ khác.
+- Mốc "hôm nay" tính theo giờ máy chủ hay giờ máy người dùng. Kiểm trong khoảng 0 giờ đến 7 giờ sáng.
+
+### 32.3. Số tiền và làm tròn
+- Tổng các dòng đã làm tròn có khớp số làm tròn của tổng không. Lệch thì dồn vào dòng nào theo đặc tả.
+- Thứ tự áp chiết khấu, phí, thuế đúng đặc tả.
+- Số tiền rất lớn (hàng nghìn tỷ) hiển thị đủ chữ số, không ra dạng 1e+12.
+- Dấu phân cách hàng nghìn tự chèn khi nhập, xóa giữa chừng con trỏ không nhảy.
+- Số tiền bằng chữ (nếu có) khớp với số.
+- Giá trị âm, hoàn tiền hiển thị đúng dấu và màu.
+
+---
+
+## 33. Kiểm tra trợ năng (WCAG 2.2 mức AA tối thiểu)
+
+> Bắt buộc với hệ thống công, cổng dịch vụ công, hoặc khi hợp đồng yêu cầu. Các hệ thống khác chạy ít nhất các dòng có dấu (*).
+
+- (*) Mỗi trường có nhãn. Lỗi kiểm tra dữ liệu được trình đọc màn hình đọc ra và gắn đúng trường.
+- Tương phản chữ thường đạt 4.5:1, chữ lớn và viền control đạt 3:1.
+- (*) Phóng to trình duyệt 200% và màn rộng 320px: không mất nội dung, không cuộn ngang.
+- (*) Trạng thái lỗi, bắt buộc, được chọn không chỉ thể hiện bằng màu.
+- Ô đang có focus không bị header dính hoặc popup che.
+- Thao tác kéo thả có cách làm khác bằng bấm. Vùng bấm tối thiểu 24 x 24 px.
+- Ảnh có nội dung có chữ thay thế. Ảnh trang trí thì trình đọc bỏ qua.
+
+---
+
+## 34. Kiểm tra danh sách: phân trang, sắp xếp, thao tác hàng loạt
+
+### 34.1. Phân trang và sắp xếp
+- Đổi số dòng mỗi trang: về trang 1, tổng số đúng.
+- Xóa bản ghi duy nhất của trang cuối: tự lùi về trang trước, không hiện trang rỗng.
+- Có bản ghi mới chen vào khi đang chuyển trang: không lặp, không mất bản ghi.
+- Sắp xếp cột có giá trị rỗng: rỗng nằm đầu hay cuối theo đặc tả.
+- Sắp xếp tên tiếng Việt: Đ đứng sau D, chữ có dấu đúng thứ tự.
+- Nhiều bản ghi cùng giá trị ở cột sắp xếp: thứ tự giữ ổn định giữa các lần tải.
+
+### 34.2. Thao tác hàng loạt
+- Chọn tất cả: chỉ trang hiện tại hay toàn bộ kết quả lọc, có nói rõ số lượng.
+- Trong tập chọn có bản ghi không đủ điều kiện (sai trạng thái, không có quyền): xử lý phần hợp lệ hay chặn cả lô, báo rõ bản ghi nào lỗi và vì sao.
+- Đổi trang rồi quay lại: lựa chọn còn hay mất theo đặc tả.
+- Chọn rất nhiều bản ghi: có giới hạn, có tiến trình, đóng trang giữa chừng thì phần đã xử lý ra sao.
+
+---
+
+## 35. Kiểm tra tải tệp lên (mở rộng Mục 5.9)
+
+- Đổi đuôi tệp (exe đổi thành pdf), tệp SVG hoặc HTML chứa mã kịch bản: bị chặn theo nội dung tệp, không chỉ theo đuôi.
+- Tệp 0 byte, tệp đúng bằng giới hạn dung lượng, lớn hơn giới hạn 1 byte.
+- Tên tệp tiếng Việt có dấu, có khoảng trắng, ký tự đặc biệt, rất dài: lưu và tải về đúng tên.
+- Đường dẫn tải tệp: người không có quyền mở trực tiếp bị chặn. Đường dẫn không đoán được. Đường dẫn đã lấy trước khi bị thu hồi quyền còn dùng được bao lâu.
+- Mất mạng giữa lúc tải lên: có thông báo, không để bản ghi trỏ tới tệp hỏng.
+- Chọn nhiều tệp một lần vượt số lượng tối đa.
+- Xem trước tệp (PDF, ảnh, Office) hiện đúng nội dung. Tệp không xem trước được thì vẫn tải về được.
+
+---
+
+## 36. Kiểm tra dữ liệu tạo trước thay đổi và quy tắc nhiều điều kiện
+
+### 36.1. Dữ liệu tạo trước thay đổi (sau mỗi đợt CR, nâng cấp)
+- Bản ghi cũ thiếu trường bắt buộc mới: mở xem được, danh sách hiển thị bình thường, sửa thì buộc nhập trường mới.
+- Giá trị danh mục trên bản ghi cũ đã bị xóa hoặc đổi tên: hiển thị đúng theo đặc tả.
+- Quy tắc mới chặt hơn: bản ghi cũ vi phạm có bị chặn khi sửa một trường khác không.
+- Báo cáo, lọc trên tập dữ liệu trộn cũ và mới cho số đúng.
+
+### 36.2. Bảng quyết định cho quy tắc nhiều điều kiện
+- Quy tắc có từ 3 điều kiện trở lên: lập bảng mọi tổ hợp đúng, sai. Gộp các cột cùng kết quả, mỗi cột còn lại là một case.
+- Tổ hợp nào đặc tả không nói kết quả: ghi câu hỏi cho BA.
+- Hai quy tắc cho kết quả trái nhau trên cùng một tổ hợp: ghi rõ quy tắc nào được ưu tiên.
+
+---
+
+## 37. Kiểm tra ngưỡng phản hồi theo đặc tả (mức thủ công)
+
+> Chỉ áp dụng khi đặc tả có yêu cầu phi chức năng về thời gian hoặc khối lượng dữ liệu. Kiểm thử tải nhiều người dùng chuyển cho nhóm chuyên trách.
+
+- Mỗi ngưỡng thời gian trong đặc tả là một case, đo bằng DevTools của trình duyệt, ghi số đo thực tế.
+- Danh sách, lọc, xuất tệp chạy trên khối dữ liệu bằng mức dự kiến sau 1 đến 3 năm sử dụng.
+- Mở cùng lúc nhiều tab nặng: trình duyệt không treo.
+- Ghi rõ case nào cần chuyển cho nhóm kiểm thử tải.

@@ -1,6 +1,6 @@
 # Bộ checklist áp dụng cho <Tên dự án>
 
-File điều phối: ghi dự án dùng checklist nào, bật mục nào, chạy theo thứ tự nào. Quy tắc chung nằm ở các file checklist dùng chung, sửa ở đó. File này chỉ ghi phần riêng của dự án. Copy file này vào thư mục testcase của dự án, đổi tên thành `00-checklist-ap-dung.md`, điền các chỗ trong ngoặc nhọn, rồi ghi đường dẫn vào khóa **File điều phối checklist** của cấu hình dự án.
+File điều phối: ghi dự án dùng checklist nào. Skill `/viet-testcase` tự dựng file này bằng cách dò dấu hiệu theo `checklist/_danh-muc.md`, người dùng chỉ cần xem lại, bật mục nào, chạy theo thứ tự nào. Quy tắc chung nằm ở các file checklist dùng chung, sửa ở đó. File này chỉ ghi phần riêng của dự án. Copy file này vào thư mục testcase của dự án, đổi tên thành `00-checklist-ap-dung.md`, điền các chỗ trong ngoặc nhọn, rồi ghi đường dẫn vào khóa **File điều phối checklist** của cấu hình dự án.
 
 Cập nhật lần cuối: <DD/MM/YYYY>
 
@@ -23,7 +23,7 @@ Chạy đúng thứ tự. Đảo thứ tự thì bộ case vẫn đủ số lư�
 | 0 | Lập danh sách rủi ro trọng tâm của chức năng, đặt lên đầu file note | `QA-Adversarial-Integrity-Checklist.md` Mục A |
 | 1 | Điền bảng tham số (con số, mốc thời gian, giới hạn) và đọc các mâu thuẫn tài liệu. Ô nào trống hoặc mâu thuẫn thì hỏi BA trước, không viết case đoán mò | Bảng thông tin đầu mỗi file tầng 3 được bật |
 | 2 | Chạy checklist nền cho từng màn | `Testcase_Template.md` |
-| 3 | Chạy checklist nghiệp vụ riêng của dự án (nếu có) | <file checklist nghiệp vụ riêng, hoặc bỏ bước này> |
+| 3 | Chạy checklist rủi ro nghiệp vụ chung (bật từng nhóm theo dấu hiệu), rồi bộ domain nếu có | `QA-Business-Risk-Core-Checklist.md`, `domain/domain-*.md` |
 | 4 | Chạy các checklist năng lực theo bảng ở mục 3 | các file `QA-*` |
 | 5 | Chạy file tư duy đối kháng để soát lại trọng tâm và quyết định case nào lên mức cao nhất | `QA-Adversarial-Integrity-Checklist.md` |
 | 6 | Rà soát cuối: sáu trạng thái màn hình và các câu hỏi rà soát | `QA-States-Errors-Notification-Checklist.md` Mục H |
@@ -39,6 +39,7 @@ Chạy đúng thứ tự. Đảo thứ tự thì bộ case vẫn đủ số lư�
 | File | Bật khi | Bật gì | Ghi chú của dự án |
 |---|---|---|---|
 | `Testcase_Template.md` | Luôn bật | Toàn bộ | Nền tảng, không có ngoại lệ |
+| `QA-Business-Risk-Core-Checklist.md` | Luôn bật | Các nhóm khớp dấu hiệu | Tầng 1, rủi ro nghiệp vụ chung |
 | `QA-States-Errors-Notification-Checklist.md` | Luôn bật | Toàn bộ | Sáu trạng thái màn hình, bảng lỗi, thông báo đa kênh |
 | `QA-Adversarial-Integrity-Checklist.md` | Hệ thống có tiền, điểm, xếp hạng, quyền duyệt, dữ liệu nhạy cảm | <mục> | |
 | `Template_Testcase_Advanced.md` | Có realtime, hàng đợi, offline, ghép nối, chuỗi nhiều bước, tích hợp ngoài | <mục> | |

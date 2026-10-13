@@ -25,9 +25,14 @@ Làm **đầu tiên**, trước khi đọc template hay viết: theo `<SKILL_BA>
 ## Bước 1. Nạp checklist theo đúng thứ tự
 
 1. Đọc **File điều phối checklist** của dự án. File này quyết định thứ tự chạy, file nào bật, mục nào tắt, mẫu bảng, quy tắc nâng High. Làm đúng theo nó, không đảo thứ tự, không tự bật mục đã tắt.
-2. Dự án chưa có file điều phối: liệt kê các checklist trong **Thư mục checklist dùng chung** (cấu hình để trống thì dùng `<SKILL_BA>/_mau-chung/checklist/` nếu có), hỏi người dùng bối cảnh dự án và bật file nào (AskUserQuestion, nhiều lựa chọn). Tạo file điều phối theo khóa **File điều phối mẫu** ở cấu hình, không có thì theo `<SKILL_BA>/_mau-chung/00-checklist-ap-dung_mau.md`, gồm: bối cảnh, thứ tự chạy, bảng bật tắt, quy tắc riêng, mẫu bảng, câu hỏi chặn. Chờ người dùng duyệt file điều phối rồi mới sinh case.
+2. **Dự án chưa có file điều phối: tự nhận diện, không hỏi người dùng chọn checklist.**
+   1. Đọc `<SKILL_BA>/_mau-chung/checklist/_danh-muc.md` (thư mục checklist theo khóa **Thư mục checklist dùng chung** ở cấu hình, để trống thì dùng thư mục này).
+   2. Dò dấu hiệu trong tài liệu đặc tả (SRS, FSD, CR, BRD) theo mục 2, 3, 4 của danh mục: bật tầng 0, tầng 1 (từng nhóm theo dấu hiệu ở đầu nhóm), các file năng lực và bộ domain khớp dấu hiệu.
+   3. Tự tạo file điều phối theo khóa **File điều phối mẫu** ở cấu hình, không có thì theo `<SKILL_BA>/_mau-chung/00-checklist-ap-dung_mau.md`. Mỗi dòng bật ghi kèm dấu hiệu đã thấy trong tài liệu.
+   4. **Năng lực hoặc domain khớp dấu hiệu mà chưa có bộ** (danh mục mục 3 trạng thái chưa tách, hoặc mục 4): dừng và nhắc người dùng đúng mẫu ở mục 5 của danh mục, kèm độ phủ ước tính và 8 đến 10 rủi ro chính dự kiến. Người dùng chọn tạo bộ thì dựng bộ, review độc lập, chờ duyệt, thêm vào danh mục rồi mới sinh case. Chọn chạy tạm thì ghi khoảng trống vào note.
+   5. Không có phần nào thiếu bộ: báo một dòng danh sách checklist đã bật rồi làm tiếp, không chờ duyệt.
 3. Đọc **Template testcase** trọn vẹn (cấu hình, hoặc `<SKILL_BA>/_mau-chung/Testcase_Template.md`). Mọi quy tắc trong đó là bắt buộc: ngôn ngữ, cấu trúc nhóm 2 cấp, đặt tên control, các nhóm kiểm thử bắt buộc, quy tắc viết kết quả mong muốn, cách đọc bảng đặc tả field.
-4. Đọc các checklist được bật, theo đúng mục được bật.
+4. Đọc các checklist được bật, theo đúng mục được bật. Luôn gồm `<SKILL_BA>/_mau-chung/checklist/QA-Business-Risk-Core-Checklist.md` (tầng 1). Bản ghi hiện ở từ hai portal, vai trò hoặc nơi xuất trở lên thì lập bảng đối chiếu theo Testcase_Template Mục 27.9.
 5. **Chọn mẫu bảng testcase**, xét theo thứ tự, gặp cái nào thì dùng cái đó:
    1. Khóa **Mẫu bảng testcase** trong cấu hình dự án.
    2. Dự án đã có file testcase (grep `*.test.md`, `*.testcase.md` trong thư mục dự án): đọc dòng tiêu đề bảng, cách đặt tên file, cách nhóm, thang ưu tiên của một file gần nhất và làm đúng như vậy. Lưu lại vào cấu hình dự án để lần sau khỏi dò.
@@ -69,8 +74,9 @@ Cách viết từng ô:
 1. Chạy bảng rà soát cuối của file điều phối (6 trạng thái màn hình, các câu hỏi rà soát).
 2. Đối chiếu: liệt kê mọi BR/AC của SRS, đánh dấu mã TC phủ. BR/AC nào chưa có TC thì viết thêm. AC nào không sinh được case đo được thì ghi note là AC chưa đạt.
 3. Đếm số case theo mức ưu tiên, cập nhật bảng tổng hợp ở đầu file.
-4. Rà văn phong theo mục 8 của `van-phong.md`.
-5. Định dạng đúng mẫu để công cụ đồng bộ đọc được (mã TC dạng `TC-<MÃ>-<số>`, nhóm theo tiêu đề `##` / `###`).
+4. **Đo độ phủ:** chấm bảng 19 nhóm ở mục 6 của `_danh-muc.md` cho chức năng này: nhóm không liên quan bỏ khỏi mẫu số, nhóm còn mỏng thì bổ sung case từ checklist tương ứng. Ghi bảng vào note. Dưới 95% thì ghi rõ nhóm nào thiếu, thiếu vì chưa có bộ (đã nhắc ở bước 1) hay vì tài liệu chưa đủ (câu hỏi chặn).
+5. Rà văn phong theo mục 8 của `van-phong.md`.
+6. Định dạng đúng mẫu để công cụ đồng bộ đọc được (mã TC dạng `TC-<MÃ>-<số>`, nhóm theo tiêu đề `##` / `###`).
 
 ## Bước review độc lập
 

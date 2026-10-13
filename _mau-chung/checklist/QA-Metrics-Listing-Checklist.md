@@ -254,6 +254,19 @@ Dùng bảng thống nhất quy định trong `CLAUDE.md` Mục 4.2, theo `Testc
 
 ---
 
+## K. Biểu đồ
+
+- Dữ liệu chỉ có một nhóm: biểu đồ tròn hoặc cột hiện một nhóm chiếm trọn, chú thích vẫn liệt kê các nhóm bằng 0 theo đặc tả.
+- Toàn bộ số liệu bằng 0: hiện trạng thái không có dữ liệu theo đặc tả, không vẽ biểu đồ rỗng méo hoặc chia cho 0.
+- Một nhóm rất nhỏ (dưới 1%): vẫn nhìn thấy hoặc được gộp vào "Khác" đúng đặc tả, nhãn không đè lên nhau.
+- Số trên chú thích, tooltip, bảng bên cạnh khớp với số dùng để vẽ.
+- Tổng phần trăm sau làm tròn: hiện 100% hay 99%, 101% theo quy tắc làm tròn đã chốt.
+- Trục thời gian có ngày, tuần không có dữ liệu: hiện điểm 0 hay bỏ trống đúng đặc tả, không nối đường thẳng làm hiểu nhầm.
+- Đổi kỳ, đổi bộ lọc: biểu đồ vẽ lại theo dữ liệu mới, không giữ lại cột của lần trước.
+- Màu các nhóm cố định giữa các lần tải và giữa các biểu đồ cùng màn, phân biệt được khi in đen trắng hoặc với người mù màu (kèm nhãn hoặc hoa văn).
+
+---
+
 ## Tự review, điểm yếu và khuyến nghị
 
 ### Điểm mạnh

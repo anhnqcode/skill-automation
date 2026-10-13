@@ -42,12 +42,13 @@ Thư mục `_mau-chung/checklist/` có các checklist dùng chung. Mỗi dự á
 2. Điền bối cảnh, bật tắt checklist theo cột "Bật khi", ghi quy tắc riêng và mẫu bảng.
 3. Ghi đường dẫn file này vào khóa **File điều phối checklist** của `_du-an/<dự án>.md`. Hoặc gọi `/viet-testcase` khi chưa có file điều phối, skill sẽ hỏi rồi tạo.
 
-Thứ tự đọc: `Testcase_Template.md` (nền, 28 mục) → các checklist được bật → `viet-testcase/tu-duy-test.md` (tìm case ngoài tài liệu).
+Thứ tự đọc: `Testcase_Template.md` (nền, 37 mục) → các checklist được bật → `viet-testcase/tu-duy-test.md` (tìm case ngoài tài liệu).
 
 | File | Nội dung |
 |:---|:---|
 | `QA-AI-Assisted-Review-Checklist.md` | Checklist Kiểm thử Luồng Máy Chấm, Người Duyệt |
 | `QA-Adversarial-Integrity-Checklist.md` | Checklist Tư duy Đối kháng và Liêm chính Dữ liệu |
+| `QA-Business-Risk-Core-Checklist.md` | Checklist rủi ro nghiệp vụ chung (tầng 1) |
 | `QA-Data-Crawling-Checklist.md` | Checklist Kiểm thử Thu thập Dữ liệu từ Nguồn Ngoài |
 | `QA-Identity-Account-Linking-Checklist.md` | Checklist Kiểm thử Danh tính và Liên kết Tài khoản |
 | `QA-Metrics-Listing-Checklist.md` | Checklist Kiểm thử Số liệu Tổng hợp và Màn Danh sách Dữ liệu |
