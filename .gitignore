@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+_session_ai/
+*.tmp
+~$*
+.secrets/
+*.json.key
