@@ -85,6 +85,10 @@ Cột Image chứa liên kết "Xem ảnh", dev bấm vào là mở ảnh cỡ l
 
 Không đưa ảnh lên chỗ công khai và không dùng hàm IMAGE, vì IMAGE chỉ hiện được ảnh công khai, mà ảnh chụp có giao diện và dữ liệu hệ thống.
 
+## Sau khi dev sửa
+
+Dev chuyển bug sang Resolved thì kiểm lại bằng skill `/verify-bug`: đạt thì Passed, còn lỗi thì Reopen, build Production thành công thì Closed.
+
 ## Báo lại
 
 - Link file bug, số bug đã ghi theo ID, kèm một dòng tóm tắt mỗi bug.

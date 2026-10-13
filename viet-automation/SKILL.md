@@ -22,6 +22,11 @@ Trả lời người dùng bằng tiếng Việt, gọi người dùng theo các
 
 Không rõ thì hỏi.
 
+5. **Khổ màn hình khi chạy** (áp dụng cả hai chế độ):
+   - Người dùng yêu cầu **mở trình duyệt cho xem**: chạy có giao diện (Python `headless=False`, TypeScript `--headed`), chạy chậm (`slow_mo` khoảng 500 ms), cửa sổ và khung nhìn **1920 × 1080**. Có thể dùng `mo(p, xem=True)` và `dai_chu()` trong `<SKILL_BA>/verify-bug/mau_verify.py` để hiện dải chữ báo đang kiểm gì.
+   - Kiểm **responsive**: đổi khung nhìn đúng khổ đang kiểm (ví dụ 1280 × 720, 1366 × 768, 1440 × 900, 1920 × 1080, 768 × 1024 máy tính bảng, 390 × 844 điện thoại) bằng `set_viewport_size`, kiểm xong trả về khổ mặc định. Ghi khổ vào kết quả của từng mục.
+   - Không yêu cầu xem: chạy không giao diện như bình thường.
+
 ---
 
 # Chế độ A. Viết script từ testcase
@@ -136,6 +141,8 @@ Người dùng chưa yêu cầu thì **không quay**, chỉ hỏi một dòng �
 Dừng. Người dùng muốn ghi lỗi cho dev thì chuyển sang `/log-bug`: xếp lỗi Cao lên đầu, ghi mức độ vào cột Note vì file bug không có cột mức độ, dùng trường "Mong muốn cho dev" làm Expect, rồi điền ID sheet bug ngược lại vào file kết quả. Người dùng muốn bộ testcase chuẩn thì chuyển file kết quả sang `/viet-testcase`.
 
 ## B8. Chạy lại sau khi dev sửa
+
+Kiểm lại bug dev báo đã sửa trên file bug (Resolved → Passed hoặc Reopen) thì dùng skill `/verify-bug`. Phần dưới đây là chạy lại cả đợt kiểm của chế độ B.
 
 1. Đọc file kết quả cũ, các mục đã chốt chấp nhận, cột ID và trạng thái trên sheet bug, `ket-qua/trang-thai/`.
 2. Chạy lại mọi mục Lỗi, Bị chặn, Không tạo được tình huống, cộng các mục Đạt cùng màn, cùng nhóm với chỗ dev sửa (kiểm hồi quy).
