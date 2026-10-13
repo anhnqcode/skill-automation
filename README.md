@@ -1,4 +1,4 @@
-# Skill Automation và Log bug
+# Skill Automation, Testcase và Log bug
 
 Bộ skill Claude Code dùng cho công việc BA / QA. Mỗi skill là một quy trình làm việc đóng gói sẵn: gọi `/tên-skill` trong Claude Code kèm mô tả ngắn là chạy.
 
@@ -7,6 +7,7 @@ Bộ skill Claude Code dùng cho công việc BA / QA. Mỗi skill là một quy
 | Lệnh | Việc làm |
 |:---|:---|
 | `/viet-automation` | Automation test theo hai chế độ. Chế độ A - đã có bộ testcase duyệt - lập .auto.md và viết script còn thiếu theo quy ước repo automation. Chế độ B - dev vừa code xong, chưa có testcase - dùng Playwright kiểm thẳng bản đã deploy, phủ rộng chứ không chỉ happy path - đối chiếu UI với design và FSD, validate, CRUD, biên, dữ liệu kỳ quặc, trạng thái lỗi, hết phiên, phân quyền, ảnh hưởng chéo - chụp lại mọi lỗi, xuất file kết quả, quay video luồng E2E có chú thích khi được yêu cầu, chuyển sang /log-bug. Dùng khi gọi /viet-automation, nhờ làm automation cho bộ testcase, hoặc nhờ dùng automation kiểm hệ thống dev vừa làm xong. |
+| `/viet-testcase` | Viết testcase manual cho SRS/FSD/CR theo checklist và template dự án, tự nhận mẫu bảng, phủ cả case ngoài SRS. Dùng khi gọi /viet-testcase hoặc nhờ viết testcase. |
 | `/log-bug` | Ghi bug vào file bug Google Sheet theo mẫu của team, kèm ảnh ghi chú và bảng REPORT. Dùng khi gọi /log-bug hoặc nhờ ghi, log bug cho dev. |
 
 ## Cài đặt
@@ -33,4 +34,28 @@ Bộ skill Claude Code dùng cho công việc BA / QA. Mỗi skill là một quy
 - Skill dùng Google Sheet cần một service account riêng của bạn. Khóa đặt ngoài thư mục skill, không đưa lên git.
 - Không đưa thư mục `_du-an/` có cấu hình dự án thật lên repo công khai.
 
-- Gói này có nhắc tới skill chưa kèm theo: `/viet-testcase`. Bước đó làm tay hoặc xin thêm skill.
+## Bộ checklist sinh testcase
+
+Thư mục `_mau-chung/checklist/` có các checklist dùng chung. Mỗi dự án bật những file phù hợp qua **file điều phối**:
+
+1. Copy `_mau-chung/00-checklist-ap-dung_mau.md` vào thư mục testcase của dự án, đổi tên thành `00-checklist-ap-dung.md`.
+2. Điền bối cảnh, bật tắt checklist theo cột "Bật khi", ghi quy tắc riêng và mẫu bảng.
+3. Ghi đường dẫn file này vào khóa **File điều phối checklist** của `_du-an/<dự án>.md`. Hoặc gọi `/viet-testcase` khi chưa có file điều phối, skill sẽ hỏi rồi tạo.
+
+Thứ tự đọc: `Testcase_Template.md` (nền, 28 mục) → các checklist được bật → `viet-testcase/tu-duy-test.md` (tìm case ngoài tài liệu).
+
+| File | Nội dung |
+|:---|:---|
+| `QA-AI-Assisted-Review-Checklist.md` | Checklist Kiểm thử Luồng Máy Chấm, Người Duyệt |
+| `QA-Adversarial-Integrity-Checklist.md` | Checklist Tư duy Đối kháng và Liêm chính Dữ liệu |
+| `QA-Data-Crawling-Checklist.md` | Checklist Kiểm thử Thu thập Dữ liệu từ Nguồn Ngoài |
+| `QA-Identity-Account-Linking-Checklist.md` | Checklist Kiểm thử Danh tính và Liên kết Tài khoản |
+| `QA-Metrics-Listing-Checklist.md` | Checklist Kiểm thử Số liệu Tổng hợp và Màn Danh sách Dữ liệu |
+| `QA-Mobile-Native-Checklist.md` | Checklist Kiểm thử Native Mobile App (iOS & Android) |
+| `QA-Public-Share-Link-Checklist.md` | Checklist Kiểm thử Link & QR Chia sẻ Công khai |
+| `QA-Ranking-Leaderboard-Checklist.md` | Checklist Kiểm thử Xếp hạng và Bảng Xếp hạng |
+| `QA-Scoring-RuleBase-Checklist.md` | Checklist Kiểm thử Bộ Quy tắc và Chấm điểm |
+| `QA-States-Errors-Notification-Checklist.md` | Checklist Kiểm thử Trạng thái màn hình, Lỗi & Thông báo |
+| `QA-TV-App-Checklist.md` | Checklist Kiểm thử TV App |
+| `QA-Voice-Interaction-Checklist.md` | Checklist Kiểm thử Tương tác bằng Giọng nói |
+| `Template_Testcase_Advanced.md` | Checklist Nâng Cao — 7 Dạng Case Đặc Thù |

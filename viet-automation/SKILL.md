@@ -89,7 +89,7 @@ Theo `<SKILL_BA>/_chung/tu-duy-phan-tich.md`, **mức gọn**, cộng 3 đến 5
 ## B1. Chuẩn bị, hỏi trước khi chạy
 
 1. Đọc FSD (BR và tiêu chí chấp nhận), file note, file câu hỏi mở. Không có FSD thì làm theo nhánh "Không có FSD" ở mục 1 của `kiem-thu-chua-co-testcase.md`. Đọc design hoặc mockup nếu có: **giải nén và liệt kê hết** các tệp.
-2. Đọc `Testcase_Template.md` của dự án (hoặc `<SKILL_BA>/_mau-chung/Testcase_Template.md`), các checklist file điều phối bật, và `<SKILL_BA>/viet-testcase/tu-duy-test.md`.
+2. Đọc `Testcase_Template.md` của dự án (hoặc `<SKILL_BA>/_mau-chung/Testcase_Template.md`), các checklist file điều phối bật, và `<SKILL_BA>/viet-testcase/tu-duy-test.md`. Dự án chưa có file điều phối thì dựng theo `<SKILL_BA>/_mau-chung/00-checklist-ap-dung_mau.md`, checklist lấy ở Thư mục checklist dùng chung (để trống thì `<SKILL_BA>/_mau-chung/checklist/`).
 3. Đọc bảng khóa **Chế độ B** trong mục Automation của cấu hình dự án. Chỉ hỏi những khóa còn trống, gom vào một lần, rồi ghi câu trả lời ngược lại vào cấu hình:
    - Link từng cổng, file chứa thông tin đăng nhập (đọc từ file, **tuyệt đối không in ra, không ghi vào script hay kết quả**).
    - Email test gốc để tạo tài khoản dạng `+alias`; được gửi email thật không; kịch bản đọc email bằng cách nào (hộp thư bắt giữ của môi trường test, IMAP hoặc Gmail API bằng khóa người dùng cấp, hay người dùng tự dán liên kết vào file).

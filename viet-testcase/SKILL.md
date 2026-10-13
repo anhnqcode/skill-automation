@@ -1,0 +1,88 @@
+---
+name: viet-testcase
+description: Viết testcase manual cho SRS/FSD/CR theo checklist và template dự án, tự nhận mẫu bảng, phủ cả case ngoài SRS. Dùng khi gọi /viet-testcase hoặc nhờ viết testcase.
+argument-hint: "<đường dẫn hoặc tên SRS / mã CR> [| phạm vi: cả file / màn X]"
+---
+
+# Viết testcase manual: $ARGUMENTS
+
+Vai trò: senior tester. Testcase phải đủ để người khác test theo mà không cần hỏi lại, và phủ cả chỗ SRS còn thiếu.
+Trả lời người dùng bằng tiếng Việt, gọi người dùng theo cách đã lưu trong memory.
+
+## Bước 0. Nạp cấu hình
+
+1. Thư mục Skill BA: `cat ~/.claude/skills/.skill-ba-root`. Gọi là `<SKILL_BA>`.
+2. Đọc `<SKILL_BA>/_chung/van-phong.md` và `tu-duy-test.md` (cùng thư mục skill này). Bắt buộc.
+3. Chọn file cấu hình dự án trong `<SKILL_BA>/_du-an/`. Đọc kỹ mục Testcase và Ghi chú riêng của dự án.
+4. `$ARGUMENTS` trống thì hỏi SRS nào.
+
+## Bước 0b. Tư duy và phân tích
+
+Làm **đầu tiên**, trước khi đọc template hay viết: theo `<SKILL_BA>/_chung/tu-duy-phan-tich.md`, **mức đầy đủ**. In khối "Phân tích" ngắn cho người dùng xem. Có câu hỏi chặn thì hỏi và chờ, không có thì làm tiếp. Lưu khối này vào đầu file note.
+
+- Có cây phân rã chức năng thì dùng để soát độ phủ: mỗi nút trong phạm vi có ít nhất một nhóm case.
+
+## Bước 1. Nạp checklist theo đúng thứ tự
+
+1. Đọc **File điều phối checklist** của dự án. File này quyết định thứ tự chạy, file nào bật, mục nào tắt, mẫu bảng, quy tắc nâng High. Làm đúng theo nó, không đảo thứ tự, không tự bật mục đã tắt.
+2. Dự án chưa có file điều phối: liệt kê các checklist trong **Thư mục checklist dùng chung** (cấu hình để trống thì dùng `<SKILL_BA>/_mau-chung/checklist/` nếu có), hỏi người dùng bối cảnh dự án và bật file nào (AskUserQuestion, nhiều lựa chọn). Tạo file điều phối theo khóa **File điều phối mẫu** ở cấu hình, không có thì theo `<SKILL_BA>/_mau-chung/00-checklist-ap-dung_mau.md`, gồm: bối cảnh, thứ tự chạy, bảng bật tắt, quy tắc riêng, mẫu bảng, câu hỏi chặn. Chờ người dùng duyệt file điều phối rồi mới sinh case.
+3. Đọc **Template testcase** trọn vẹn (cấu hình, hoặc `<SKILL_BA>/_mau-chung/Testcase_Template.md`). Mọi quy tắc trong đó là bắt buộc: ngôn ngữ, cấu trúc nhóm 2 cấp, đặt tên control, các nhóm kiểm thử bắt buộc, quy tắc viết kết quả mong muốn, cách đọc bảng đặc tả field.
+4. Đọc các checklist được bật, theo đúng mục được bật.
+5. **Chọn mẫu bảng testcase**, xét theo thứ tự, gặp cái nào thì dùng cái đó:
+   1. Khóa **Mẫu bảng testcase** trong cấu hình dự án.
+   2. Dự án đã có file testcase (grep `*.test.md`, `*.testcase.md` trong thư mục dự án): đọc dòng tiêu đề bảng, cách đặt tên file, cách nhóm, thang ưu tiên của một file gần nhất và làm đúng như vậy. Lưu lại vào cấu hình dự án để lần sau khỏi dò.
+   3. Chưa có gì: dùng `<SKILL_BA>/_mau-chung/Testcase_Mau-bang-mac-dinh.md` (mẫu mặc định: 10 cột, P0/P1/P2, có Mã SRS và Mã UC - TKCT, không có cột Automation).
+
+   Báo người dùng một dòng đang dùng mẫu nào. Template testcase hay checklist dùng chung có mẫu bảng khác thì vẫn theo mẫu vừa chọn, chỉ quy đổi thang ưu tiên cho khớp (P0 ↔ High, P1 ↔ Medium, P2 ↔ Low).
+
+## Bước 2. Đọc nguồn
+
+1. SRS trọn vẹn, kèm `.note.md`. CR đã duyệt đụng tới màn này. Quy tắc nghiệp vụ liên quan.
+2. File testcase cũ nếu có: giữ mã TC còn đúng, TC mới lấy số kế tiếp, TC lỗi thời thì xóa và ghi vào note.
+3. Thiết kế hoặc hệ thống thật nếu cần làm rõ hành vi (chỉ xem).
+4. Lập trong note: rủi ro trọng tâm của chức năng, bảng tham số (con số, mốc thời gian, giới hạn), mâu thuẫn giữa các tài liệu.
+
+## Bước 3. Hỏi điểm chặn
+
+- Tham số trống hoặc tài liệu mâu thuẫn mà ảnh hưởng tới kết quả mong muốn: hỏi trước, không viết case đoán mò.
+- Chưa biết chức năng làm gì: hỏi. Biết hành vi nhưng thiếu con số: vẫn viết case, Ghi chú "chờ chốt tham số X", câu hỏi ghi vào note.
+- Kết quả mong muốn theo SRS, CR và hệ thống đang chạy. Không tự sửa SRS, CR khi đang viết testcase.
+
+## Bước 4. Sinh case
+
+Chạy lần lượt các bước của file điều phối. Ở mỗi màn, mỗi quy tắc:
+
+1. Sinh case từ SRS/FSD: mọi BR và AC có ít nhất một case. Ghi mã truy vết theo mẫu bảng đã chọn: mẫu có cột Automation ghi mã BR/AC trong ngoặc ở cuối Kết quả mong muốn, mẫu mặc định ghi mã màn ở cột Mã SRS và mã use case ở cột Mã UC - TKCT.
+2. Sinh case **ngoài SRS** theo `tu-duy-test.md`. Case nào SRS chưa nói kết quả: kết quả lấy theo hệ thống đang chạy hoặc hành vi hợp lý của màn tương tự, và ghi vào note mục "SRS thiếu" để BA bổ sung. Chưa biết hệ thống làm gì thì đưa vào danh sách câu hỏi, chưa viết kết quả.
+3. Mỗi quy tắc viết đủ hai lớp: hệ thống xử lý đúng, và người dùng nhìn thấy đúng trên màn (con số, trạng thái, thông báo có cập nhật không).
+4. Điền bảng đúng mẫu bảng đã chọn ở Bước 1. Mức ưu tiên theo quy tắc nâng mức cao nhất của dự án. Kết quả thực tế để trống. Ghi chú chỉ điền khi có điều cần lưu ý thật.
+
+Cách viết từng ô:
+
+- **Mục đích:** một câu nói rõ kiểm tra gì, trong điều kiện nào.
+- **Tiền điều kiện:** vai trò đăng nhập, trạng thái bản ghi, dữ liệu cần có, con số cụ thể.
+- **Các bước:** đánh số, mỗi bước một thao tác, gọi đúng tên nút, tên field như trên giao diện. Xuống dòng bằng `<br>`.
+- **Kết quả mong muốn:** cụ thể, đo được: chữ thông báo nguyên văn, số bản ghi, trạng thái mới, bản ghi xuất hiện ở đâu. Lọc và xuất viết "đúng các bản ghi thỏa điều kiện, đủ và chỉ những bản ghi đó".
+
+## Bước 5. Rà soát cuối
+
+1. Chạy bảng rà soát cuối của file điều phối (6 trạng thái màn hình, các câu hỏi rà soát).
+2. Đối chiếu: liệt kê mọi BR/AC của SRS, đánh dấu mã TC phủ. BR/AC nào chưa có TC thì viết thêm. AC nào không sinh được case đo được thì ghi note là AC chưa đạt.
+3. Đếm số case theo mức ưu tiên, cập nhật bảng tổng hợp ở đầu file.
+4. Rà văn phong theo mục 8 của `van-phong.md`.
+5. Định dạng đúng mẫu để công cụ đồng bộ đọc được (mã TC dạng `TC-<MÃ>-<số>`, nhóm theo tiêu đề `##` / `###`).
+
+## Bước review độc lập
+
+Sau khi tự review, giao bộ testcase (chỉ khi có từ 30 case trở lên), nguồn đối chiếu là SRS/FSD/CR; agent tìm BR/AC chưa có case, case trùng, kết quả mong muốn không đo được, nhóm case còn thiếu theo `tu-duy-test.md` cho một agent mới review theo `<SKILL_BA>/_chung/review-doc-lap.md`. Lỗi rõ ràng thì sửa luôn, điểm cần BA quyết đưa vào danh sách đề xuất khi báo lại. Ghi kết quả vào note mục "Review độc lập".
+
+## Bước 6. Viết note
+
+`<tên>.note.md` cạnh SRS (có rồi thì cập nhật): rủi ro trọng tâm, bảng tham số, mâu thuẫn tài liệu, SRS thiếu, câu hỏi chờ chốt, bảng đối chiếu BR/AC → TC, bảng đối chiếu checklist đã chạy.
+
+## Bước 7. Báo lại và dừng
+
+- Link file testcase và note. Số case theo từng mức ưu tiên. Số case ngoài SRS.
+- Các điểm SRS thiếu và câu hỏi chờ chốt (tối đa 5 điểm quan trọng nhất).
+
+Dừng, chờ người dùng duyệt. Duyệt xong, chỉ khi cấu hình dự án có **Repo automation** thì gợi ý chạy `/viet-automation`.
