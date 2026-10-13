@@ -40,6 +40,24 @@ Làm **đầu tiên**, trước khi đọc template hay viết: theo `<SKILL_BA>
 
    Báo người dùng một dòng đang dùng mẫu nào. Template testcase hay checklist dùng chung có mẫu bảng khác thì vẫn theo mẫu vừa chọn, chỉ quy đổi thang ưu tiên cho khớp (P0 ↔ High, P1 ↔ Medium, P2 ↔ Low).
 
+## Chế độ CR (đầu vào là một CR đã duyệt)
+
+Gọi bằng `/viet-testcase CR-YYMM-NNN`, thường từ Bước 9 của `/viet-cr`. Chỉ chạy khi người dùng đã duyệt CR. Các bước khác của skill vẫn làm đủ, riêng các điểm sau khác chế độ thường:
+
+1. **File:** `CR-YYMM-NNN.test.md` đặt cạnh CR, cùng mẫu bảng của dự án (chọn theo Bước 1.5). File này giữ lại sau khi gộp để tra lịch sử.
+2. **Phạm vi:** chạy đủ checklist theo thứ tự nhưng chỉ cho **phần mới hoặc thay đổi** của CR. Mọi AC ở mục 4 của CR có ít nhất một case. Hành vi giữ nguyên thì không viết case mới, đưa vào phần hồi quy.
+3. **Mã tạm:** `TC-CR<YYMMNNN>-<số>`, ví dụ `TC-CR2610011-001`, để không trùng mã trong `.test.md` của SRS. Mã chính thức được cấp khi gộp bằng `/cap-nhat-srs`.
+4. **Chia phần theo SRS đích:** mỗi SRS trong bảng "Tài liệu bị ảnh hưởng" của CR là một phần `# PHẦN A — <tên SRS>`, ghi đường dẫn `.test.md` sẽ gộp vào và nhóm đích. Trong mỗi phần nhóm case theo cấp như file testcase của SRS đó.
+5. **Loại gộp:** cột Ghi chú của mỗi case mở đầu bằng một trong ba dấu:
+   - `Gộp: Mới` thêm case mới.
+   - `Gộp: Sửa TC-xxx` thay nội dung case cũ TC-xxx (hành vi cũ bị CR đổi), giữ mã cũ.
+   - Case cũ bị CR làm lỗi thời mà không có case thay thì liệt kê ở bảng "Case cũ bỏ khi gộp" cuối mỗi phần: Mã TC | Lý do.
+   Tra mã case cũ bằng cách đọc `.test.md` của SRS đích, đối chiếu với phần "Thay thế một phần" và các mục sửa của CR.
+6. **Phần hồi quy** cuối file: bảng Mã TC trong SRS | File | Lý do chạy lại. Chọn các case cũ quanh chỗ thay đổi: cùng màn, cùng thành phần dùng chung, luồng trước và sau, màn khác dùng chung dữ liệu. Chỉ ghi mã, không chép nội dung.
+7. **Automation:** cột Automation Status chỉ ghi gợi ý tầng (E2E / API / Manual only). Chưa lập `.auto.md`, chưa viết script, vì mã còn là mã tạm. Trong sprint muốn kiểm bản dev vừa làm thì dùng `/viet-automation` chế độ B với danh sách case này.
+8. **Testcase List trên sheet:** chưa đẩy. Chỉ đẩy sau khi gộp vào SRS.
+9. Đầu file ghi: Mã CR, ngày sinh, trạng thái **Chưa gộp**, tổng số case theo mức ưu tiên và theo phần.
+
 ## Bước 2. Đọc nguồn
 
 1. SRS trọn vẹn, kèm `.note.md`. CR đã duyệt đụng tới màn này. Quy tắc nghiệp vụ liên quan.

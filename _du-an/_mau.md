@@ -63,6 +63,32 @@ Template để "—" thì skill dùng bản trong `_mau-chung/` của Skill BA.
 | Mã truy vết | US,YC,SCR,UC,BR,AC (mã nào testcase ghi để truy vết thì giữ) |
 | File thuật ngữ | — (bảng thuật ngữ có sẵn của dự án, hoặc tạo `<SKILL_BA>/_du-an/<tên>.thuat-ngu.md` theo `_mau-chung/thuat-ngu_mau.md`) |
 
+## Jira
+
+Dự án không dùng Jira thì để cả mục "—". Dùng cho `/lam-task-jira`, và cho `/log-bug`, `/verify-bug` khi Nơi ghi bug là Jira.
+
+| Khóa | Giá trị |
+|:---|:---|
+| Địa chỉ Jira | — (VD https://jira.congty.vn hoặc https://congty.atlassian.net) |
+| File token | — (VD C:/Users/<tên>/.secrets/jira-<dự án>.token. Server: Personal Access Token. Cloud: API token) |
+| Email (chỉ Jira Cloud) | — |
+| Mã project | — |
+| Từ khóa task BA | BA & Design |
+| Trạng thái đang làm | In Progress |
+| Trạng thái xong | Done |
+| Nơi ghi bug | Google Sheet (hoặc Jira) |
+| Trạng thái bug | Resolved → Done khi đạt, Reopen khi còn lỗi |
+| Trường Env | — |
+| Người nhận bug | — |
+
+## Tài liệu trên git
+
+| Khóa | Giá trị |
+|:---|:---|
+| Repo tài liệu | — |
+| Mẫu link tài liệu | — (GitLab: <repo>/-/blob/<nhánh>/<đường dẫn>. GitHub: <repo>/blob/<nhánh>/<đường dẫn>) |
+| Quy ước push | — |
+
 ## Automation
 
 Chế độ A (viết script từ testcase đã duyệt):

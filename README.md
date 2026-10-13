@@ -8,8 +8,8 @@ Bộ skill Claude Code dùng cho công việc BA / QA. Mỗi skill là một quy
 |:---|:---|
 | `/viet-automation` | Automation test theo hai chế độ. Chế độ A - đã có bộ testcase duyệt - lập .auto.md và viết script còn thiếu theo quy ước repo automation. Chế độ B - dev vừa code xong, chưa có testcase - dùng Playwright kiểm thẳng bản đã deploy, phủ rộng chứ không chỉ happy path - đối chiếu UI với design và FSD, validate, CRUD, biên, dữ liệu kỳ quặc, trạng thái lỗi, hết phiên, phân quyền, ảnh hưởng chéo - chụp lại mọi lỗi, xuất file kết quả, quay video luồng E2E có chú thích khi được yêu cầu, chuyển sang /log-bug. Dùng khi gọi /viet-automation, nhờ làm automation cho bộ testcase, hoặc nhờ dùng automation kiểm hệ thống dev vừa làm xong. |
 | `/viet-testcase` | Viết testcase manual cho SRS/FSD/CR theo checklist và template dự án, tự nhận mẫu bảng, phủ cả case ngoài SRS. Dùng khi gọi /viet-testcase hoặc nhờ viết testcase. |
-| `/log-bug` | Ghi bug vào file bug Google Sheet theo mẫu của team, kèm ảnh ghi chú và bảng REPORT. Dùng khi gọi /log-bug hoặc nhờ ghi, log bug cho dev. |
-| `/verify-bug` | Kiểm lại các bug dev báo đã sửa (Resolved) trên file bug Google Sheet, kèm vài mục hồi quy liên quan, đo đạc cụ thể trên trang bằng Playwright có giao diện, chạy chậm, có dải chữ báo bug đang kiểm. Đạt thì chuyển Passed, còn lỗi thì Reopen kèm ghi chú và ảnh. Chuyển Closed sau khi build Production thành công. Dùng khi gọi /verify-bug hoặc nhờ verify, kiểm lại bug dev đã fix. |
+| `/log-bug` | Ghi bug vào file bug Google Sheet theo mẫu của team, kèm ảnh ghi chú và bảng REPORT, hoặc tạo issue Bug trên Jira khi dự án ghi bug trên Jira. Dùng khi gọi /log-bug hoặc nhờ ghi, log bug cho dev. |
+| `/verify-bug` | Kiểm lại các bug dev báo đã sửa (Resolved) trên file bug Google Sheet hoặc trên Jira, kèm vài mục hồi quy liên quan, đo đạc cụ thể trên trang bằng Playwright có giao diện, chạy chậm, có dải chữ báo bug đang kiểm. Đạt thì chuyển Passed (Jira: Done), còn lỗi thì Reopen kèm ghi chú và ảnh (Jira: comment). Chuyển Closed sau khi build Production thành công. Dùng khi gọi /verify-bug hoặc nhờ verify, kiểm lại bug dev đã fix. |
 
 ## Cài đặt
 
@@ -61,3 +61,5 @@ Thứ tự đọc: `Testcase_Template.md` (nền, 37 mục) → các checklist �
 | `QA-TV-App-Checklist.md` | Checklist Kiểm thử TV App |
 | `QA-Voice-Interaction-Checklist.md` | Checklist Kiểm thử Tương tác bằng Giọng nói |
 | `Template_Testcase_Advanced.md` | Checklist Nâng Cao — 7 Dạng Case Đặc Thù |
+
+- Gói này có nhắc tới skill chưa kèm theo: `/cap-nhat-srs`, `/lam-task-jira`, `/viet-cr`. Bước đó làm tay hoặc xin thêm skill.

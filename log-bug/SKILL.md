@@ -1,7 +1,7 @@
 ---
 name: log-bug
-description: Ghi bug vào file bug Google Sheet theo mẫu của team, kèm ảnh ghi chú và bảng REPORT. Dùng khi gọi /log-bug hoặc nhờ ghi, log bug cho dev.
-argument-hint: "<link Google Sheet file bug> | <nguồn bug: file kết quả kiểm thử, danh sách mã bug, hoặc mô tả bug>"
+description: Ghi bug vào file bug Google Sheet theo mẫu của team, kèm ảnh ghi chú và bảng REPORT, hoặc tạo issue Bug trên Jira khi dự án ghi bug trên Jira. Dùng khi gọi /log-bug hoặc nhờ ghi, log bug cho dev.
+argument-hint: "<link Google Sheet file bug | mã task test Jira> | <nguồn bug: file kết quả kiểm thử, danh sách mã bug, hoặc mô tả bug>"
 ---
 
 # Ghi bug cho dev: $ARGUMENTS
@@ -16,7 +16,8 @@ Trả lời người dùng bằng tiếng Việt, gọi người dùng theo các
 3. Chọn file cấu hình dự án trong `<SKILL_BA>/_du-an/`. Đọc mục Google Drive (khóa service account) và Ghi chú riêng của dự án (tên cổng, cách gọi các bên).
 4. `GAPI` = `node "<SKILL_BA>/scripts/google_api.mjs" <lệnh> ... --key "<Khóa service account>"`. Không bao giờ đọc, in hay chép nội dung file khóa.
 5. Thiếu link file bug thì tra bảng Tài liệu đã gửi của dự án, không có thì hỏi.
-6. Lấy link **thư mục ảnh bug** trong cấu hình dự án (bảng Tài liệu đã gửi). Chưa có thì hỏi người dùng tạo một thư mục trên Drive, chia sẻ cho email service account (Người xem) và cho dev, rồi ghi link vào cấu hình.
+6. Xem khóa **Nơi ghi bug** trong mục Jira của cấu hình dự án. Là **Jira** thì đọc thêm `mau-bug-jira.md` và làm theo mục "Ghi bug lên Jira" ở cuối file này, bỏ mục 4 tới 6 của bước này.
+7. Lấy link **thư mục ảnh bug** trong cấu hình dự án (bảng Tài liệu đã gửi). Chưa có thì hỏi người dùng tạo một thư mục trên Drive, chia sẻ cho email service account (Người xem) và cho dev, rồi ghi link vào cấu hình.
 
 ## Bước 0b. Tư duy và phân tích
 
@@ -85,13 +86,23 @@ Cột Image chứa liên kết "Xem ảnh", dev bấm vào là mở ảnh cỡ l
 
 Không đưa ảnh lên chỗ công khai và không dùng hàm IMAGE, vì IMAGE chỉ hiện được ảnh công khai, mà ảnh chụp có giao diện và dữ liệu hệ thống.
 
+## Ghi bug lên Jira
+
+Dự án có Nơi ghi bug là Jira thì thay Bước 1, 2, 6, 7 bằng các bước sau. Bước 3, 4, 5 giữ nguyên (gom, kiểm lại, viết nội dung, vẽ ảnh).
+
+1. Lấy mã task test từ tham số hoặc từ `/lam-task-jira`. Không có thì hỏi người dùng bug thuộc task nào, vì sprint và version của bug lấy theo task đó.
+2. Viết từng bug theo `mau-bug-jira.md`: Summary như Bước 4, mô tả theo mẫu wiki markup, Priority theo mức độ, Sprint và Fix Version theo task test, Env theo môi trường đang test.
+3. Tìm bug trùng trước khi tạo, rồi tạo, tải mọi ảnh của bug lên Jira đính kèm vào bug, liên kết với task test theo mục 3 của `mau-bug-jira.md`.
+4. Assignee theo **Người nhận bug** trong cấu hình, để trống thì không giao.
+5. Nguồn là file kết quả của `/viet-automation`: điền mã bug Jira ngược lại vào từng lỗi BUG-xx.
+
 ## Sau khi dev sửa
 
 Dev chuyển bug sang Resolved thì kiểm lại bằng skill `/verify-bug`: đạt thì Passed, còn lỗi thì Reopen, build Production thành công thì Closed.
 
 ## Báo lại
 
-- Link file bug, số bug đã ghi theo ID, kèm một dòng tóm tắt mỗi bug.
+- Link file bug (hoặc link từng bug Jira), số bug đã ghi theo ID, kèm một dòng tóm tắt mỗi bug.
 - Bug nào kiểm lại thấy đã hết nên không ghi.
 - Danh sách ảnh cần kéo lên thư mục ảnh bug (ID dòng và đường dẫn tệp), hoặc xác nhận đã gắn liên kết xong.
 - Nhắc người dùng kiểm tra dev đã có quyền xem thư mục ảnh bug.

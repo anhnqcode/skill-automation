@@ -1,6 +1,6 @@
 ---
 name: verify-bug
-description: Kiểm lại các bug dev báo đã sửa (Resolved) trên file bug Google Sheet, kèm vài mục hồi quy liên quan, đo đạc cụ thể trên trang bằng Playwright có giao diện, chạy chậm, có dải chữ báo bug đang kiểm. Đạt thì chuyển Passed, còn lỗi thì Reopen kèm ghi chú và ảnh. Chuyển Closed sau khi build Production thành công. Dùng khi gọi /verify-bug hoặc nhờ verify, kiểm lại bug dev đã fix.
+description: Kiểm lại các bug dev báo đã sửa (Resolved) trên file bug Google Sheet hoặc trên Jira, kèm vài mục hồi quy liên quan, đo đạc cụ thể trên trang bằng Playwright có giao diện, chạy chậm, có dải chữ báo bug đang kiểm. Đạt thì chuyển Passed (Jira: Done), còn lỗi thì Reopen kèm ghi chú và ảnh (Jira: comment). Chuyển Closed sau khi build Production thành công. Dùng khi gọi /verify-bug hoặc nhờ verify, kiểm lại bug dev đã fix.
 argument-hint: "<link Google Sheet file bug> [| môi trường / URL] [| ID bug] [| closed: đợt build Production]"
 ---
 
@@ -15,6 +15,7 @@ Trả lời người dùng bằng tiếng Việt, gọi người dùng theo các
 2. Đọc `<SKILL_BA>/_chung/van-phong.md` và `<SKILL_BA>/log-bug/mau-bang-bug.md` (bố cục sheet, cột, văn phong Note).
 3. Chọn file cấu hình dự án trong `<SKILL_BA>/_du-an/`: khóa service account, link file bug, thư mục ảnh bug, mục Automation (thư mục kịch bản, tài khoản test, môi trường).
 4. `GAPI` = `node "<SKILL_BA>/scripts/google_api.mjs" <lệnh> ... --key "<Khóa service account>"`. Không bao giờ đọc, in hay chép nội dung file khóa.
+5. Mục Jira của cấu hình có **Nơi ghi bug: Jira** thì đọc thêm `<SKILL_BA>/log-bug/mau-bug-jira.md`, dùng lệnh `JIRA` như `/lam-task-jira` Bước 0, và làm theo mục "Bug trên Jira" ở cuối file này.
 
 ## Bước 0b. Tư duy và phân tích
 
@@ -68,6 +69,19 @@ Chỉ làm khi người dùng báo **build Production thành công** (`/verify-b
 1. Hỏi rõ đợt build gồm những bug nào nếu người dùng chưa nói (thường là mọi bug đang Passed).
 2. Chuyển các bug đó từ Passed sang **Closed**. Không đổi bug ở trạng thái khác.
 3. Người dùng muốn kiểm nhanh trên Production trước khi đóng thì chạy lại Bước 2, 3 với URL Production, chỉ thao tác chỉ đọc, không tạo hay sửa dữ liệu thật.
+
+## Bug trên Jira
+
+Bước 0b, 2, 3 giữ nguyên. Thay Bước 1, 4, 5 như sau:
+
+1. Lấy bug cần kiểm: `JIRA search 'project = <mã> AND issuetype = Bug AND status = Resolved AND reporter = currentUser() ORDER BY priority DESC'`. Người dùng đưa mã bug hoặc mã task thì chỉ lấy các bug đó (bug của task: `issue in linkedIssues(<task>)`). Đọc từng bug bằng `JIRA issue <mã>`: mô tả, ảnh, comment của dev.
+2. Kết luận theo bảng của Bước 4, đổi tên trạng thái theo mục 4 của `mau-bug-jira.md`:
+   - Đạt: chuyển **Done**, không comment.
+   - Còn lỗi: chuyển **Reopen** kèm comment `Verify <dd/mm> trên <môi trường>: ...`, ảnh mới đính trực tiếp vào bug.
+   - Lỗi hồi quy: tạo bug mới theo `/log-bug` với nơi ghi Jira, cùng sprint và version với bug gốc, liên kết với bug gốc.
+   - Không kiểm được, khó kết luận: giữ Resolved.
+3. Đọc lại từng bug bằng `JIRA issue` để chắc trạng thái đã đổi.
+4. Jira đã chuyển Done thì không có bước Closed riêng, trừ khi cấu hình dự án ghi workflow có Closed sau Done.
 
 ## Báo lại
 

@@ -151,3 +151,35 @@ Làm khi dự án có design hoặc mockup.
 - Chép `mau_chung.py` của skill vào thư mục Automation thành `chung.py`: ghi kết quả, chụp và che, chờ API, bắt lỗi ngầm, trace, lưu trạng thái, thử ghi file.
 - Mỗi kịch bản đợt nhận tham số chọn nhóm để chạy lại riêng một nhóm.
 - Chạy lâu thì chạy nền, chia đợt theo màn hoặc theo cổng.
+
+## 7. Case chính và phần chạy ngầm
+
+Dùng khi người dùng yêu cầu xem trình duyệt trong lúc chạy. Không yêu cầu xem thì mọi thứ chạy ngầm.
+
+**Case chính (bật cửa sổ khi được yêu cầu xem):**
+
+| # | Nhóm | Gồm những gì |
+|:---|:---|:---|
+| 1 | Luồng nghiệp vụ từ đầu tới cuối | Đi trọn một vòng nghiệp vụ qua mọi vai trò, ví dụ: quản trị tạo dữ liệu gốc, người dùng cuối dùng dữ liệu đó và tạo kết quả, quản trị xem kết quả và ra quyết định, người dùng cuối thấy quyết định |
+| 2 | Luồng tích hợp giữa các cổng | Dữ liệu cổng này tạo hiện đúng ở cổng kia; đổi trạng thái ở cổng này (ẩn, dừng, cấp, xóa) thì cổng kia đổi theo ngay; số liệu tổng hợp cập nhật |
+| 3 | Happy case từng màn | Mỗi thao tác chính của mỗi màn làm thành công một lần |
+| 4 | Validate cơ bản | Bỏ trống trường bắt buộc, chỉ gồm khoảng trắng, giới hạn ký tự, trùng, ngày sai, tệp sai định dạng hoặc quá dung lượng, import sai mẫu, mật khẩu không đủ điều kiện |
+| 5 | Thêm sửa xóa cơ bản và hệ quả hiển thị | Thêm xong ở đúng vị trí và có thông báo; sửa xong giá trị mới hiện mọi nơi; xóa có hỏi lại, Hủy thì còn nguyên; số đếm cập nhật |
+
+**Luôn chạy ngầm:**
+
+| Nhóm | Lý do |
+|:---|:---|
+| Responsive | Kết quả là số đo tràn ngang, xem cửa sổ đổi khổ liên tục không có ích |
+| An ninh hộp đen | Phần lớn diễn ra ngoài giao diện |
+| Biên tệp lớn, tệp 0 byte, tệp có mã | Tải tệp lớn rất lâu, giao diện không đổi |
+| Bàn phím, trợ năng | Kết quả là danh sách vi phạm |
+| Lỗi mạng, lỗi 5xx, hết phiên | Giả lập bằng chặn request, xóa cookie |
+| Case phi logic | Cần kiểm bằng số liệu, xem nhanh dễ hiểu nhầm |
+| Phân trang, lọc kết hợp, xuất file đọc từng cột | Nhiều bước lặp, kết quả đọc từ bảng và file |
+| Đối chiếu design | Chụp ảnh rồi so trên ảnh ghép |
+| Đăng nhập sai, khóa tài khoản, giới hạn tần suất | Lặp cùng một thao tác, làm khóa tài khoản |
+| Chạy lại sau khi sửa kịch bản | Chỉ để lấy lại kết quả |
+
+Bản đồ phủ (mục 3) đánh dấu nhóm nào là case chính để bộ chạy biết bật cửa sổ ở bước nào.
+

@@ -22,11 +22,13 @@ Trả lời người dùng bằng tiếng Việt, gọi người dùng theo các
 
 Không rõ thì hỏi.
 
-5. **Khổ màn hình khi chạy** (áp dụng cả hai chế độ):
-   - Người dùng yêu cầu **mở trình duyệt cho xem**: chạy có giao diện (Python `headless=False`, TypeScript `--headed`), chạy chậm (`slow_mo` khoảng 500 ms), cửa sổ và khung nhìn **1920 × 1080**. Có thể dùng `mo(p, xem=True)` và `dai_chu()` trong `<SKILL_BA>/verify-bug/mau_verify.py` để hiện dải chữ báo đang kiểm gì.
-   - Kiểm **responsive**: đổi khung nhìn đúng khổ đang kiểm (ví dụ 1280 × 720, 1366 × 768, 1440 × 900, 1920 × 1080, 768 × 1024 máy tính bảng, 390 × 844 điện thoại) bằng `set_viewport_size`, kiểm xong trả về khổ mặc định. Ghi khổ vào kết quả của từng mục.
-   - Không yêu cầu xem: chạy không giao diện như bình thường.
-
+5. **Chạy ngầm hay bật cửa sổ** (áp dụng cả hai chế độ):
+   - **Mặc định chạy ngầm** (không giao diện). Chỉ bật cửa sổ khi người dùng yêu cầu xem **trong lần chạy đó**, không tự bật mọi lần.
+   - Khi người dùng yêu cầu xem, **chỉ case chính** chạy có cửa sổ: luồng nghiệp vụ từ đầu tới cuối (E2E), luồng tích hợp giữa các cổng, happy case từng màn, validate cơ bản, thêm sửa xóa cơ bản và hệ quả hiển thị. Mục đích là người dùng thấy hệ thống đang làm đúng việc chính. Danh sách đầy đủ ở mục 7 của `kiem-thu-chua-co-testcase.md`.
+   - Các nhóm còn lại **luôn chạy ngầm**, kể cả khi người dùng đang xem: responsive, an ninh hộp đen, biên tệp lớn, trợ năng, lỗi mạng và 5xx, hết phiên, case phi logic, phân trang và lọc kết hợp, đối chiếu design, đăng nhập sai và khóa tài khoản, chạy lại sau khi sửa kịch bản. Tách thành bước riêng với cờ xem tắt.
+   - Thứ tự khi người dùng đang xem: case chính trước; các nhóm chạy ngầm sau hoặc song song; nhóm đăng nhập sai, mật khẩu, khóa tài khoản cuối cùng.
+   - Cách bật: chạy có giao diện (Python `headless=False`, TypeScript `--headed`), chậm khoảng 500 ms, cửa sổ và khung nhìn **1920 × 1080**, có dải chữ trên cùng báo mục đang kiểm và kết quả. Dùng `mo(p, xem=True)` và `dai_chu()` trong `<SKILL_BA>/verify-bug/mau_verify.py`, hoặc một công tắc biến môi trường (ví dụ `XEM=1`) để bộ chạy bật tắt theo từng bước mà không sửa từng kịch bản.
+   - Kiểm **responsive**: luôn chạy ngầm, đổi khung nhìn bằng `set_viewport_size` theo các khổ cấu hình dự án cho phép, kiểm xong trả về khổ mặc định. Ghi khổ vào kết quả của từng mục.
 ---
 
 # Chế độ A. Viết script từ testcase
