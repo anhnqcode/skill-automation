@@ -9,6 +9,7 @@ Mọi skill làm bước này **đầu tiên**, sau khi nạp cấu hình và tr
 - Không có câu hỏi chặn: làm tiếp luôn, không chờ duyệt.
 - Lưu khối Phân tích vào đầu file note của tài liệu (mục "Phân tích ban đầu") để sau tra lại.
 - Trong lúc làm phát hiện phân tích ban đầu sai: sửa khối Phân tích trong note và báo người dùng một dòng.
+- Việc là sửa một tài liệu đã hoàn thành (đã duyệt, đã push, đã gửi đi): làm theo `<SKILL_BA>/_chung/sua-tai-lieu-da-xong.md`, dò hết chỗ bị ảnh hưởng và báo trước, người dùng duyệt rồi mới sửa.
 
 ## Mức đầy đủ
 

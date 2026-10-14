@@ -72,7 +72,7 @@
 ## 4. Sửa chỗ sai
 
 - BA chỉ ra chỗ sai: xóa hẳn chỗ đó, không giữ lại rồi thêm câu giải thích.
-- Đổi một quyết định: grep lại toàn bộ tài liệu (mô tả, bảng tác động, quy tắc, AC, note) để sửa hết chỗ còn viết theo quyết định cũ.
+- Đổi một quyết định: grep lại toàn bộ tài liệu (mô tả, bảng tác động, quy tắc, AC, note) để sửa hết chỗ còn viết theo quyết định cũ. Tài liệu đã hoàn thành thì dò cả các file khác và báo trước theo `_chung/sua-tai-lieu-da-xong.md`.
 - AC dẫn tới quy tắc cũ thì ghi thẳng chữ báo lỗi hoặc hành vi thật, không ghi "theo CR-XXX".
 
 ## 4b. Chỉ viết phần mới (CR)
