@@ -32,7 +32,7 @@ Bộ skill Claude Code dùng cho công việc BA / QA. Mỗi skill là một quy
 ## Lưu ý
 
 - Văn phong tài liệu theo `_chung/van-phong.md` (tiếng Việt, câu ngắn, giọng thường). Sửa file này nếu team bạn có quy ước khác.
-- Skill dùng Google Sheet cần một service account riêng của bạn. Khóa đặt ngoài thư mục skill, không đưa lên git.
+- Skill dùng Google Sheet cần một service account riêng của bạn. Cách tạo và kết nối: `_chung/ket-noi-google-sheet.md`. Khóa đặt ngoài thư mục skill, không đưa lên git.
 - Không đưa thư mục `_du-an/` có cấu hình dự án thật lên repo công khai.
 
 ## Bộ checklist sinh testcase

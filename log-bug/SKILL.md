@@ -14,7 +14,7 @@ Trả lời người dùng bằng tiếng Việt, gọi người dùng theo các
 1. Thư mục Skill BA: `cat ~/.claude/skills/.skill-ba-root`. Gọi là `<SKILL_BA>`.
 2. Đọc `<SKILL_BA>/_chung/van-phong.md` và `mau-bang-bug.md` (cùng thư mục skill này). Bắt buộc.
 3. Chọn file cấu hình dự án trong `<SKILL_BA>/_du-an/`. Đọc mục Google Drive (khóa service account) và Ghi chú riêng của dự án (tên cổng, cách gọi các bên).
-4. `GAPI` = `node "<SKILL_BA>/scripts/google_api.mjs" <lệnh> ... --key "<Khóa service account>"`. Không bao giờ đọc, in hay chép nội dung file khóa.
+4. `GAPI` = `node "<SKILL_BA>/scripts/google_api.mjs" <lệnh> ... --key "<Khóa service account>"`. Không bao giờ đọc, in hay chép nội dung file khóa. Chưa có khóa, không thấy file khóa, hoặc gọi lỗi 401, 403 thì hướng dẫn người dùng theo `<SKILL_BA>/_chung/ket-noi-google-sheet.md` rồi dừng.
 5. Thiếu link file bug thì tra bảng Tài liệu đã gửi của dự án, không có thì hỏi.
 6. Xem khóa **Nơi ghi bug** trong mục Jira của cấu hình dự án. Là **Jira** thì đọc thêm `mau-bug-jira.md` và làm theo mục "Ghi bug lên Jira" ở cuối file này, bỏ mục 4 tới 6 của bước này.
 7. Lấy link **thư mục ảnh bug** trong cấu hình dự án (bảng Tài liệu đã gửi). Chưa có thì hỏi người dùng tạo một thư mục trên Drive, chia sẻ cho email service account (Người xem) và cho dev, rồi ghi link vào cấu hình.
