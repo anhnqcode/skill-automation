@@ -62,6 +62,13 @@
 - BA trả lời "Không / Không có" cho một ý, hoặc bỏ một ý: xóa hẳn mọi dấu vết ý đó khỏi tài liệu, chỉ ghi ở bảng "Các điểm đã chốt" trong `.note.md`. Không đổi ý đó thành dòng "Không đổi".
 - Nội dung đã lên production thì viết là hiện trạng: "Hệ thống đang chạy … như sau". Không rải "theo CR-XXX", mã màn (SCR04), mã quy tắc (BR17) hay "của SRS X" vào phần mô tả, quy tắc, AC: gọi thẳng tên màn và viết thẳng hành vi. Tham chiếu tài liệu chỉ đặt ở dòng CR phụ thuộc và bảng "Tài liệu bị ảnh hưởng".
 
+## 3b. SRS, FSD viết mới không so sánh với tài liệu cũ
+
+- Tài liệu cũ (SRS cũ, CR, trang đang chạy) chỉ dùng để hiểu chức năng, menu dùng để làm gì. Tài liệu mới viết lại như mô tả hệ thống từ đầu.
+- Từ mục 2 trở đi: không bảng "cũ / mới", không câu "so với bố cục cũ", "bố cục mới", "thay cho", "như hiện có", "viết lại theo thiết kế mới", không tham chiếu tên tài liệu cũ hay mã CR.
+- Tham chiếu tài liệu cũ, CR chỉ đặt ở mục 1 (Lịch sử thay đổi, Tài liệu tham chiếu). Mô tả ở Lịch sử thay đổi dòng đầu chỉ ghi "Khởi tạo tài liệu".
+- Tên tài liệu, tiêu đề, chú thích ảnh không kèm chữ "(bố cục mới)", "(mới)".
+
 ## 4. Sửa chỗ sai
 
 - BA chỉ ra chỗ sai: xóa hẳn chỗ đó, không giữ lại rồi thêm câu giải thích.
@@ -81,6 +88,27 @@
 - Bảng field: độ dài ghi ở cột **Loại**, đủ cả min và max: `Textbox (1–100 ký tự)`. Field bắt buộc min = 1, không bắt buộc min = 0. Cột Quy tắc nhập không lặp lại con số độ dài.
 - Luồng dữ liệu viết dạng bảng `Bước | Mô tả hành động | Kết quả hệ thống thực hiện`. Logic rẽ nhánh phức tạp thì thêm Mermaid flowchart.
 - Ảnh nhúng bằng `![mô tả ngắn](_attachments/<tên file>.png)`.
+- Đã có thiết kế thì SRS không mô tả hình thức: bố cục (mấy hàng, góc nào, chia đều), màu, cỡ chữ, khoảng cách, kích thước khung. Dev xem ở thiết kế. SRS chỉ giữ nội dung và định dạng dữ liệu (chữ hiển thị, định dạng ngày giờ, số tiền, đếm ngược, cắt chữ), hành vi, điều kiện hiện ẩn, trạng thái và quy tắc. Quy tắc quy đổi sang hiển thị thì BR định nghĩa mức, bảng giao diện ghi "màu theo thiết kế". Ràng buộc người dùng đưa riêng (ví dụ mã màu thương hiệu) ghi một dòng ở mục Ràng buộc.
+
+### 5b. Mỗi nội dung chỉ viết ở một chỗ
+
+- Bảng trường thông tin, bảng nút, bảng cột đã mô tả giao diện. Business Rule chỉ viết phần bảng không nói được: điều kiện nghiệp vụ, ràng buộc giữa nhiều trường, cách chọn và sắp xếp dữ liệu, quy đổi dữ liệu sang hiển thị, hệ quả về dữ liệu, thông báo lỗi kèm quy tắc. Trước khi viết một rule, tự hỏi bảng đã nói chưa. Nói rồi thì bỏ rule, hoặc chỉ giữ phần bảng chưa nói.
+
+| Viết ở bảng | Viết thành rule |
+|:---|:---|
+| Danh sách giá trị, giá trị mặc định, số thẻ, chữ hiển thị, định dạng | Khi nào giá trị bị chặn, vì sao mặc định như vậy |
+| Kiểu hiển thị (badge, icon, màu theo thiết kế) | Quy tắc quy đổi dữ liệu sang hiển thị, ví dụ ngưỡng nào ra màu nào |
+| Thẻ số liệu, khu dữ liệu hiển thị gì | Tính trên phạm vi nào, chọn bản ghi nào, sắp xếp theo gì, khi nào thay đổi |
+| Nút bấm đi đâu, mở gì | Điều kiện được bấm, hệ quả lên dữ liệu và bản ghi khác |
+
+- Ở bảng giao diện, chỗ nào chạm logic của rule thì chỉ nói ngắn kết quả nhìn thấy, không kèm mã BR, không câu dẫn kiểu "(cách chọn: BR04)", không chép lại nội dung rule: "Đếm ngược tới hạn đăng ký, màu chữ đổi theo thời gian còn lại". Tên BR ghi rõ khu hoặc thành phần nó áp dụng để người đọc tự tìm. Mã BR chỉ xuất hiện ở bảng BR, use case và cột Liên kết của AC.
+- Business Rule viết dạng quy tắc bắt buộc: "Phải", "Chỉ được phép", "Không được" (ngoại lệ của mục 3, chữ "không" được dùng trong BR khi đó là ràng buộc). Không kể lại luồng thao tác.
+- Business Rule chỉ giữ năm loại, ghi ở cột Loại: Chính sách, Dữ liệu (định nghĩa, nguồn, tiêu chí chọn), Ràng buộc, Tính toán, Logic. Quy tắc giao diện đưa lên bảng giao diện, quy tắc kỹ thuật (chịu lỗi, chống gửi trùng, hiệu năng) đưa sang Yêu cầu phi chức năng.
+- Business Rule không gọi tên thành phần giao diện (khu, tab, nút, màu, bố cục, hiệu ứng). Gọi theo loại dữ liệu để đổi giao diện thì BR không phải sửa. Quy đổi sang hiển thị thì BR định nghĩa mức (ví dụ mức cảnh báo Khẩn, Sắp hết hạn), bảng giao diện ghi màu của từng mức.
+- Câu thông báo viết ngay tại chỗ phát sinh, chỉ một lần.
+- Hai lỗi hay gặp: chép nguyên mô tả của bảng xuống thành rule; viết rule chỉ để khẳng định một thứ không có.
+- Sửa một quyết định thì rà đủ ba chỗ: bảng giao diện, Business Rules, AC.
+- Bỏ hoặc đánh lại số BR thì grep mã BR trên toàn file. Ngoài bảng BR, use case và cột Liên kết của AC, chỗ nào còn mã BR (ghi chú NFR, sơ đồ, luồng tích hợp, bảng giao diện) thì thay bằng câu nói thẳng nội dung.
 
 ## 6. Thành phần giao diện mới
 

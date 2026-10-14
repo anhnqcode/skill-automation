@@ -183,3 +183,25 @@ Dùng khi người dùng yêu cầu xem trình duyệt trong lúc chạy. Không
 
 Bản đồ phủ (mục 3) đánh dấu nhóm nào là case chính để bộ chạy biết bật cửa sổ ở bước nào.
 
+
+## 8. Chạy ngầm không được giấu lỗi
+
+Chạy ngầm là mặc định, nên mọi khác biệt giữa trình duyệt chạy ngầm và trình duyệt người dùng thật đều là chỗ lọt lỗi. Ví dụ đã gặp: nút Tải xuống ở popup Xem trước PDF trên Chrome thật mở đè PDF lên trang, mất phần đang sửa; bản chạy ngầm rút gọn của Playwright lại tải tệp về bình thường nên kịch bản chấm Đạt.
+
+**Ba lớp chặn, áp cho mọi lần chạy ngầm:**
+
+| Lớp | Làm gì | Cách làm |
+|:---|:---|:---|
+| 1. Chạy ngầm bằng Chrome đầy đủ | Không dùng bản `chromium-headless-shell` rút gọn (mặc định của Playwright khi chỉ ghi `headless=True`). Bản rút gọn không có trình xem PDF và xử lý tải tệp, mở tab, in khác Chrome thật | Python `launch(headless=True, channel="chromium")`. TypeScript `channel: 'chromium'` trong `playwright.config`. `mo()` của `<SKILL_BA>/verify-bug/mau_verify.py` đã làm sẵn |
+| 2. Kiểm hậu quả sau mỗi thao tác tải, xuất, in, mở liên kết | Bắt buộc có tệp tải về thật và đúng tên; trang chính không tự chuyển sang địa chỉ khác (`blob:`, `data:`, tệp PDF); không mở tab lạ; popup đang mở vẫn còn và giữ phần đang sửa | `kiem_tai(page, bam, duong_dan)` trong `mau_verify.py`, kết quả `dat` False là Lỗi |
+| 3. Soi cách code tạo liên kết | Ghi lại mọi liên kết được bấm. Liên kết `blob:`, `data:` không có thuộc tính `download` là rủi ro, kể cả khi trình duyệt chạy ngầm không lộ hậu quả. Đây cũng là chỗ dev cần sửa, ghi vào Note của bug | `gan_canh_gac(ctx)` (mo() tự gắn), đọc ở trường `link_rui_ro` của `kiem_tai` |
+
+**Thao tác phải đi qua `kiem_tai` hoặc kiểm tương đương:** tải tệp, xuất Excel/PDF, xem trước rồi tải, in, mở liên kết ngoài, sao chép vào bộ nhớ tạm, mở tệp trong tab mới.
+
+**Khác biệt còn lại cần biết khi đọc kết quả chạy ngầm:**
+
+- Trang chạy ngầm không giữ focus cửa sổ (`document.hasFocus()` có thể là false): case focus, phím tắt, bộ nhớ tạm kiểm lại bằng một lượt có giao diện nếu nghi ngờ.
+- Hộp thoại gốc của trình duyệt (in, chọn tệp hệ điều hành, xác nhận rời trang) không hiện ra: kiểm bằng sự kiện, không kiểm bằng ảnh.
+- Phông chữ, độ mượt hình ảnh có thể khác chút ít: đối chiếu design chỉ kết luận lệch khi chênh rõ, không kết luận theo từng pixel.
+
+Lỗi chỉ lộ khi bật cửa sổ mà ba lớp trên không bắt được thì ghi thêm vào mục này để lần sau chặn được.

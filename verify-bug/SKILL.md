@@ -1,6 +1,6 @@
 ---
 name: verify-bug
-description: Kiểm lại các bug dev báo đã sửa (Resolved) trên file bug Google Sheet hoặc trên Jira, kèm vài mục hồi quy liên quan, đo đạc cụ thể trên trang bằng Playwright có giao diện, chạy chậm, có dải chữ báo bug đang kiểm. Đạt thì chuyển Passed (Jira: Done), còn lỗi thì Reopen kèm ghi chú và ảnh (Jira: comment). Chuyển Closed sau khi build Production thành công. Dùng khi gọi /verify-bug hoặc nhờ verify, kiểm lại bug dev đã fix.
+description: "Kiểm lại các bug dev báo đã sửa (Resolved) trên file bug Google Sheet hoặc trên Jira, kèm vài mục hồi quy liên quan, đo đạc cụ thể trên trang bằng Playwright, mặc định chạy ngầm, chỉ bật cửa sổ chạy chậm có dải chữ khi người dùng yêu cầu. Đạt thì chuyển Passed (Jira: Done), còn lỗi thì Reopen kèm ghi chú và ảnh (Jira: comment). Chuyển Closed sau khi build Production thành công. Dùng khi gọi /verify-bug hoặc nhờ verify, kiểm lại bug dev đã fix."
 argument-hint: "<link Google Sheet file bug> [| môi trường / URL] [| ID bug] [| closed: đợt build Production]"
 ---
 
@@ -41,14 +41,14 @@ Theo `<SKILL_BA>/_chung/tu-duy-phan-tich.md`, mức gọn: môi trường nào �
 3. Mỗi bước gọi `dai_chu(page, "Bug #<ID> - <Summary>", "Bước x/y: <việc đang làm>")` để người xem biết đang kiểm gì. Kết luận xong mỗi bug thì đổi dải chữ sang `dat` hoặc `khong-dat` và dừng 2 giây.
 4. Chụp bằng chứng bằng `chup()` (dải chữ tự ẩn khi chụp) cho mọi bug **không đạt**.
 5. Thao tác làm đổi dữ liệu (tạo, sửa, xóa, đổi trạng thái) thì trả dữ liệu về như cũ ngay sau khi đo.
-6. Bug cần kiểm ở nhiều khổ màn hình: đo ở từng khổ bằng `doi_kho()` (ví dụ 1280 × 720, 1366 × 768, 1440 × 900, 1920 × 1080, 390 × 844 cho điện thoại). Khổ nào lỗi thì ghi rõ khổ đó.
+6. Bug liên quan tải tệp, xuất file, in, mở liên kết: bấm qua `kiem_tai()`, đạt khi có tệp tải về thật, không rời trang, không mở tab lạ, không có link `blob:` thiếu `download`. `mo()` đã chạy ngầm bằng Chrome đầy đủ và gắn sẵn phần theo dõi. Lý do ở mục 8 của `<SKILL_BA>/viet-automation/kiem-thu-chua-co-testcase.md`.
+7. Bug cần kiểm ở nhiều khổ màn hình: đo ở từng khổ bằng `doi_kho()` (ví dụ 1280 × 720, 1366 × 768, 1440 × 900, 1920 × 1080, 390 × 844 cho điện thoại). Khổ nào lỗi thì ghi rõ khổ đó.
 
 ## Bước 3. Chạy
 
-- **Chạy để người dùng xem:** `mo(p, xem=True, kho=(1920, 1080), cham=500)`. Trình duyệt có giao diện, chạy chậm, cửa sổ và khung nhìn 1920 × 1080, dải chữ hiện trên cùng trang. Đây là chế độ mặc định của skill.
-- Bug cần kiểm khổ responsive: khung nhìn đổi theo khổ đang kiểm bằng `doi_kho()`, xong thì trả về 1920 × 1080.
-- Người dùng nói chạy nền, không cần xem: `xem=False`.
-- Chạy nền khi kịch bản dài, báo người dùng mở cửa sổ trình duyệt để theo dõi.
+- **Mặc định chạy ngầm:** `mo(p, xem=False)`. Không bật cửa sổ trình duyệt, chỉ báo kết quả khi xong.
+- **Chỉ bật cửa sổ khi người dùng yêu cầu** xem lượt verify này: `mo(p, xem=True, kho=(1920, 1080), cham=500)`. Trình duyệt có giao diện, chạy chậm, cửa sổ và khung nhìn 1920 × 1080, dải chữ hiện trên cùng trang. Yêu cầu bật ở lượt trước không áp cho lượt sau, mỗi lượt hỏi lại nếu chưa rõ.
+- Khi đã bật cửa sổ, phần kiểm responsive vẫn chạy ngầm. Khung nhìn đổi theo khổ đang kiểm bằng `doi_kho()`, xong thì trả về 1920 × 1080.
 
 ## Bước 4. Kết luận từng bug
 

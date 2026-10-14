@@ -95,7 +95,7 @@ Chạy lần lượt các bước của file điều phối. Ở mỗi màn, m�
 Cách viết từng ô:
 
 - **Mục đích:** một câu nói rõ kiểm tra gì, trong điều kiện nào.
-- **Tiền điều kiện:** vai trò đăng nhập, trạng thái bản ghi, dữ liệu cần có, con số cụ thể.
+- **Tiền điều kiện:** vai trò đăng nhập, trạng thái bản ghi, dữ liệu cần có, con số cụ thể. Mỗi case tự ghi đủ dữ liệu nó cần ngay trong ô này. Không dùng bảng dữ liệu chung ở đầu file rồi ghi tắt kiểu "D1", vì người đọc phải cuộn lên tra và khi lọc case trên sheet thì mất ngữ cảnh.
 - **Các bước:** đánh số, mỗi bước một thao tác, gọi đúng tên nút, tên field như trên giao diện. Xuống dòng bằng `<br>`.
 - **Kết quả mong muốn:** cụ thể, đo được: chữ thông báo nguyên văn, số bản ghi, trạng thái mới, bản ghi xuất hiện ở đâu. Lọc và xuất viết "đúng các bản ghi thỏa điều kiện, đủ và chỉ những bản ghi đó".
 

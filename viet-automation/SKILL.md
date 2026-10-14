@@ -29,6 +29,7 @@ Không rõ thì hỏi.
    - **Đầu vào là CR** (mã CR, hoặc file `CR-YYMM-NNN.test.md`): chỉ kiểm phần CR đổi. Các nhóm phi chức năng (lỗi mạng, 5xx, responsive, phân quyền, hiệu năng, hết phiên, trợ năng, an ninh hộp đen) lọc theo bảng "Lọc nhóm phi chức năng" ở chế độ CR của `<SKILL_BA>/viet-testcase/SKILL.md`. File kết quả ghi một dòng các nhóm đã bỏ và lý do. Chức năng mới hoàn toàn thì vẫn phủ rộng như dưới đây.
    - Thứ tự khi người dùng đang xem: case chính trước; các nhóm chạy ngầm sau hoặc song song; nhóm đăng nhập sai, mật khẩu, khóa tài khoản cuối cùng.
    - Cách bật: chạy có giao diện (Python `headless=False`, TypeScript `--headed`), chậm khoảng 500 ms, cửa sổ và khung nhìn **1920 × 1080**, có dải chữ trên cùng báo mục đang kiểm và kết quả. Dùng `mo(p, xem=True)` và `dai_chu()` trong `<SKILL_BA>/verify-bug/mau_verify.py`, hoặc một công tắc biến môi trường (ví dụ `XEM=1`) để bộ chạy bật tắt theo từng bước mà không sửa từng kịch bản.
+   - **Chạy ngầm không được giấu lỗi:** chạy ngầm bằng Chrome đầy đủ (`channel="chromium"`), không dùng bản rút gọn mặc định; mọi thao tác tải, xuất, in, mở liên kết đi qua `kiem_tai()` (có tệp thật, không rời trang, không link `blob:` thiếu `download`). Chi tiết mục 8 của `kiem-thu-chua-co-testcase.md`.
    - Kiểm **responsive**: luôn chạy ngầm, đổi khung nhìn bằng `set_viewport_size` theo các khổ cấu hình dự án cho phép, kiểm xong trả về khổ mặc định. Ghi khổ vào kết quả của từng mục.
 ---
 
@@ -141,7 +142,7 @@ Người dùng chưa yêu cầu thì **không quay**, chỉ hỏi một dòng �
 - Dữ liệu thử đã tạo, nhắc dọn theo cách đã ghi ở cấu hình.
 - Link file kết quả, file đối chiếu giao diện, video nếu có.
 
-Dừng. Người dùng muốn ghi lỗi cho dev thì chuyển sang `/log-bug`: xếp lỗi Cao lên đầu, ghi mức độ vào cột Note vì file bug không có cột mức độ, dùng trường "Mong muốn cho dev" làm Expect, rồi điền ID sheet bug ngược lại vào file kết quả. Người dùng muốn bộ testcase chuẩn thì chuyển file kết quả sang `/viet-testcase`.
+Dừng. Người dùng muốn ghi lỗi cho dev thì chuyển sang `/log-bug`: xếp lỗi Cao lên đầu, không ghi mức độ vào cột Note (file có cột Priority thì ghi ở đó, không có thì chỉ báo mức độ cho người dùng), dùng trường "Mong muốn cho dev" làm Expect, rồi điền ID sheet bug ngược lại vào file kết quả. Người dùng muốn bộ testcase chuẩn thì chuyển file kết quả sang `/viet-testcase`.
 
 ## B8. Chạy lại sau khi dev sửa
 

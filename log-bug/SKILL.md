@@ -57,7 +57,7 @@ Theo đúng mục Văn phong của `mau-bang-bug.md`:
 - Status Todo, Asignee và Reporter theo mặc định của file (theo file mẫu của dự án). ID nối tiếp ID cuối.
 - Note chỉ khi có thêm thông tin cho dev.
 
-Xếp thứ tự: bug mức Cao trước, cùng màn thì để gần nhau. File bug không có cột mức độ nên ghi mức độ vào đầu cột Note khi mức là Cao hoặc Trung bình, ví dụ "Mức Cao: lộ số điện thoại giáo viên khác".
+Xếp thứ tự: bug mức Cao trước, cùng màn thì để gần nhau. **Không ghi mức độ vào cột Note.** File bug có cột Priority thì ghi mức ở cột đó. Không có thì không tự thêm cột, chỉ báo mức độ cho người dùng trong phần Báo lại; người dùng muốn thì mới tạo cột Priority.
 
 ## Bước 5. Vẽ ảnh ghi chú
 
@@ -102,7 +102,7 @@ Dev chuyển bug sang Resolved thì kiểm lại bằng skill `/verify-bug`: đ�
 
 ## Báo lại
 
-- Link file bug (hoặc link từng bug Jira), số bug đã ghi theo ID, kèm một dòng tóm tắt mỗi bug.
+- Link file bug (hoặc link từng bug Jira), số bug đã ghi theo ID, kèm một dòng tóm tắt và mức độ mỗi bug.
 - Bug nào kiểm lại thấy đã hết nên không ghi.
 - Danh sách ảnh cần kéo lên thư mục ảnh bug (ID dòng và đường dẫn tệp), hoặc xác nhận đã gắn liên kết xong.
 - Nhắc người dùng kiểm tra dev đã có quyền xem thư mục ảnh bug.

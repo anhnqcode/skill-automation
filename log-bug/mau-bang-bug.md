@@ -49,7 +49,7 @@ Người đọc là dev. Dev không đọc FSD, nên viết đủ để dev tái
 | | Expect nhiều ý thì xuống dòng bằng dấu `+` | `- Expect:`<br>`+ Khi mở modal có nút Sửa kết quả`<br>`+ Mọi thông tin ở chế độ readonly` |
 | | Bug giao diện nhiều chỗ đã ghi đủ trên ảnh thì viết một dòng | `- Actual + Expect: Chi tiết như hình` |
 | Image | Liên kết "Xem ảnh" mở ảnh ghi chú trên Drive (công thức HYPERLINK). Không chèn ảnh vào ô vì ảnh quá nhỏ, dev không đọc được. Bug không cần hình thì để trống | `=HYPERLINK("https://drive.google.com/file/d/<id>/view";"Xem ảnh")` |
-| Note | Chỉ ghi khi có thêm thông tin cho dev: mức độ khi là Cao hoặc Trung bình, chỗ khác cũng bị, điều kiện tái hiện đặc biệt. Không có thì để trống | `Popup xem trước ở Cổng quản trị cũng bị` |
+| Note | Chỉ ghi khi có thêm thông tin cho dev: chỗ khác cũng bị, điều kiện tái hiện đặc biệt, gốc lỗi kỹ thuật đã thấy. Không ghi mức độ (Cao, Trung bình) vào Note. Không có thì để trống | `Popup xem trước ở Cổng quản trị cũng bị` |
 
 **Không viết:**
 - Mã quy tắc, mã màn, tên tài liệu (BR-C19, SCR-A05, FSD mục 3.2). Dev không tra những mã này.
