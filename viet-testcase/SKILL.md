@@ -46,6 +46,18 @@ Gọi bằng `/viet-testcase CR-YYMM-NNN`, thường từ Bước 9 của `/viet
 
 1. **File:** `CR-YYMM-NNN.test.md` đặt cạnh CR, cùng mẫu bảng của dự án (chọn theo Bước 1.5). File này giữ lại sau khi gộp để tra lịch sử.
 2. **Phạm vi:** chạy đủ checklist theo thứ tự nhưng chỉ cho **phần mới hoặc thay đổi** của CR. Mọi AC ở mục 4 của CR có ít nhất một case. Hành vi giữ nguyên thì không viết case mới, đưa vào phần hồi quy.
+   **Lọc nhóm phi chức năng:** chỉ sinh nhóm dưới đây khi CR thật sự chạm tới, và chỉ cho đúng phần CR đổi:
+
+   | Nhóm | Chỉ sinh khi CR... |
+   |:---|:---|
+   | Lỗi mạng, lỗi 5xx khi lưu | Thêm hoặc đổi thao tác lưu, gửi, thanh toán, tải tệp, hay gọi một API hoặc hệ thống ngoài mới |
+   | Bấm nhiều lần, hai người cùng sửa | Đổi chỗ có tiền, trạng thái, số lượng |
+   | Responsive | Đổi bố cục hoặc thêm thành phần giao diện. Chỉ kiểm thành phần đó, ở các khổ dự án hỗ trợ |
+   | Phân quyền, lộ dữ liệu | Thêm field, thêm màn, hoặc đổi người được xem, được làm |
+   | Hiệu năng | Có con số về thời gian, số lượng bản ghi, hoặc thêm danh sách, xuất file lớn |
+   | Hết phiên, trợ năng, an ninh hộp đen chung | Bỏ |
+
+   Đầu file ghi một dòng "Nhóm không kiểm vì CR không chạm tới: …" để biết bỏ có chủ ý. Các nhóm này để cho đợt hồi quy toàn hệ thống hoặc trước khi lên Production.
 3. **Mã tạm:** `TC-CR<YYMMNNN>-<số>`, ví dụ `TC-CR2610011-001`, để không trùng mã trong `.test.md` của SRS. Mã chính thức được cấp khi gộp bằng `/cap-nhat-srs`.
 4. **Chia phần theo SRS đích:** mỗi SRS trong bảng "Tài liệu bị ảnh hưởng" của CR là một phần `# PHẦN A — <tên SRS>`, ghi đường dẫn `.test.md` sẽ gộp vào và nhóm đích. Trong mỗi phần nhóm case theo cấp như file testcase của SRS đó.
 5. **Loại gộp:** cột Ghi chú của mỗi case mở đầu bằng một trong ba dấu:
