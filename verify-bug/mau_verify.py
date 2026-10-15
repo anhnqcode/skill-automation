@@ -13,6 +13,7 @@ Gom:
 - chup(page, duong_dan)     chup bang chung o ti le 2x, an dai chu truoc khi chup
 - gan_canh_gac(ctx)         theo doi link duoc bam (co thuoc tinh download khong), window.open, print; mo() tu gan
 - kiem_tai(page, bam, duong_dan)  bam nut tai / xuat / in roi kiem: co tep tai ve that, khong roi trang, khong mo tab la, khong link blob thieu download
+- kiem_bo_cuc(page)         do bo cuc: nut trung, tieu de cot xuong dong, cot rong noi dung ngan, khoang trang lon giua cot, chu bang nho
 
 Chay ngam dung Chrome day du (channel="chromium"), khong dung headless-shell rut gon. Xem muc 8 cua viet-automation/kiem-thu-chua-co-testcase.md.
 """
@@ -202,3 +203,69 @@ def kiem_tai(page, bam, duong_dan=None, cho=6000):
         if page.url != goc:
             page.goto(goc, wait_until="load")
     return kq
+
+
+# ------------------------------------------------------------------ do bo cuc: can chinh, khoang trong, trung nut, co chu
+_BO_CUC_JS = r"""
+(cfg) => {
+  const ra = [];
+  const hien = e => { const r = e.getBoundingClientRect(); const s = getComputedStyle(e); return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && s.display !== 'none'; };
+  // khung cua cac doan chu that (khong lay khung cua the bao ngoai, the khoi rong full o)
+  const khung_chu = e => { const out = []; const w = document.createTreeWalker(e, NodeFilter.SHOW_TEXT);
+    while (w.nextNode()) { const n = w.currentNode; if (!n.textContent.trim()) continue; const rg = document.createRange(); rg.selectNodeContents(n);
+      [...rg.getClientRects()].forEach(r => { if (r.width > 0) out.push(r); }); }
+    [...e.querySelectorAll('svg, img, input, [role=checkbox], [data-slot=checkbox-control]')].filter(hien).forEach(x => out.push(x.getBoundingClientRect()));
+    return out; };
+  const rong_chu = e => { const rs = khung_chu(e); if (!rs.length) return 0; return Math.max(...rs.map(r => r.right)) - Math.min(...rs.map(r => r.left)); };
+  // 1. nut cung nhan hien 2 lan tren man (ngoai cac dong bang)
+  const nut = [...document.querySelectorAll(cfg.vung + ' button, ' + cfg.vung + ' a')].filter(hien).filter(b => !b.closest('[role=dialog]')).filter(b => { const tr = b.closest('tbody tr'); return !tr || tr.children.length <= 1; });
+  const dem = {}; nut.forEach(b => { const t = b.innerText.trim(); if (t) (dem[t] = dem[t] || []).push(b); });
+  Object.entries(dem).filter(([t, ds]) => ds.length > 1).forEach(([t, ds]) => ra.push({loai: 'Trùng nút', chi_tiet: `"${t}" hiện ${ds.length} lần`,
+    khung: ds.map(b => { const r = b.getBoundingClientRect(); return [r.x, r.y, r.right, r.bottom].map(Math.round); })}));
+  // 2-5. bang
+  document.querySelectorAll(cfg.vung + ' table').forEach((tb, ib) => {
+    if (!hien(tb)) return;
+    const W = tb.getBoundingClientRect().width;
+    const th = [...tb.querySelectorAll('thead th')];
+    const dong = [...tb.querySelectorAll('tbody tr')].filter(hien).slice(0, 20);
+    if (!th.length || !dong.length) return;
+    const cot = th.map((h, i) => {
+      const r = h.getBoundingClientRect(); const lh = parseFloat(getComputedStyle(h).lineHeight) || parseFloat(getComputedStyle(h).fontSize) * 1.3;
+      const o = dong.map(tr => tr.children[i]).filter(Boolean);
+      const noi = o.map(c => rong_chu(c));
+      const trai = o.map(c => { const rs = khung_chu(c); return rs.length ? Math.min(...rs.map(x => x.left)) : Infinity; }).filter(isFinite);
+      const phai = o.map(c => { const rs = khung_chu(c); return rs.length ? Math.max(...rs.map(x => x.right)) : -Infinity; }).filter(isFinite);
+      const co = o.map(c => { const t = [...c.querySelectorAll('*')].filter(x => x.childElementCount === 0 && x.innerText && x.innerText.trim()); return t.length ? Math.max(...t.map(x => parseFloat(getComputedStyle(x).fontSize))) : parseFloat(getComputedStyle(c).fontSize); });
+      return {ten: h.innerText.trim().replace(/\s+/g, ' '), x: r.x, rong: r.width, tieu_de_xuong_dong: h.querySelector('*') ? r.height > lh * 1.6 + 24 : false,
+              tieu_de_cao: r.height, lh, noi_max: Math.max(0, ...noi), trai_min: Math.min(...trai), phai_max: Math.max(...phai), co_chu: Math.max(...co)};
+    });
+    // tieu de cot bi xuong dong: so dong chu cua tieu de
+    th.forEach((h, i) => { const dongs = new Set(khung_chu(h).filter(x => x.height < 40).map(x => Math.round(x.top / 4))); cot[i].so_dong_tieu_de = dongs.size; });
+    const du = cot.filter(c => c.ten && c.rong > W * 0.18 && c.noi_max < c.rong * 0.35);
+    cot.forEach(c => { c.trai_min = c.trai_min === undefined || !isFinite(c.trai_min) ? c.x : c.trai_min; });
+    cot.forEach((c, i) => {
+      if (c.ten && c.so_dong_tieu_de > 1 && du.length) ra.push({loai: 'Tiêu đề cột xuống dòng', chi_tiet: `"${c.ten}" ${c.so_dong_tieu_de} dòng, rộng ${Math.round(c.rong)}px, trong khi cột ${du.map(d => '"' + d.ten + '"').join(', ')} dư chỗ`, khung: [[Math.round(c.x), Math.round(th[i].getBoundingClientRect().y), Math.round(c.x + c.rong), Math.round(th[i].getBoundingClientRect().bottom)]]});
+    });
+    du.forEach(c => ra.push({loai: 'Cột rộng nhưng nội dung ngắn', chi_tiet: `"${c.ten}" rộng ${Math.round(c.rong)}px (${Math.round(c.rong / W * 100)}% bảng), nội dung dài nhất ${Math.round(c.noi_max)}px`, khung: [[Math.round(c.x), Math.round(tb.getBoundingClientRect().y), Math.round(c.x + c.rong), Math.round(tb.getBoundingClientRect().bottom)]]}));
+    for (let i = 0; i + 1 < cot.length; i++) {
+      const gap = cot[i + 1].trai_min - cot[i].phai_max;
+      if (isFinite(gap) && gap > W * cfg.ty_le_khoang_trong) ra.push({loai: 'Khoảng trắng lớn giữa hai cột', chi_tiet: `giữa "${cot[i].ten || 'cột ' + (i + 1)}" và "${cot[i + 1].ten || 'cột ' + (i + 2)}" trống ${Math.round(gap)}px (${Math.round(gap / W * 100)}% bảng)`,
+        khung: [[Math.round(cot[i].phai_max), Math.round(tb.getBoundingClientRect().y), Math.round(cot[i + 1].trai_min), Math.round(tb.getBoundingClientRect().bottom)]]});
+    }
+    const nho = cot.filter(c => c.ten && c.co_chu < cfg.co_chu_toi_thieu);
+    if (nho.length) ra.push({loai: 'Chữ trong bảng nhỏ', chi_tiet: nho.map(c => `"${c.ten}" ${c.co_chu}px`).join(', ') + ` (< ${cfg.co_chu_toi_thieu}px)`, khung: []});
+  });
+  return ra;
+}
+"""
+
+
+def kiem_bo_cuc(page, vung="main", ty_le_khoang_trong=0.25, co_chu_toi_thieu=14):
+    """Do bo cuc man dang mo, tra ve danh sach phat hien (loai, chi_tiet, khung toa do CSS de ve anh bug):
+    - Trung nut: cung mot nut hanh dong hien 2 lan tren man (vi du nut Them o dau trang va o trang thai rong)
+    - Tieu de cot xuong dong trong khi co cot khac du cho
+    - Cot rong nhung noi dung ngan (>18% be rong bang ma noi dung < 35% be rong cot)
+    - Khoang trang lon giua hai cot lien ke (> 25% be rong bang)
+    - Chu trong bang nho hon co chu toi thieu (mac dinh 14px, doi theo design)
+    Ket qua la goi y can xem lai, khong tu dong la Loi: doi chieu design truoc khi ket luan."""
+    return page.evaluate(_BO_CUC_JS, {"vung": vung, "ty_le_khoang_trong": ty_le_khoang_trong, "co_chu_toi_thieu": co_chu_toi_thieu})
