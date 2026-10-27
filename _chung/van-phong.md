@@ -86,8 +86,10 @@
 
 - Bảng có alignment marker (`:---`, `:---:`), tiêu đề cột viết hoa chữ đầu.
 - Bảng field: độ dài ghi ở cột **Loại**, đủ cả min và max: `Textbox (1–100 ký tự)`. Field bắt buộc min = 1, không bắt buộc min = 0. Cột Quy tắc nhập không lặp lại con số độ dài.
+- Ô bảng nào có từ 2 ý trở lên (Quy tắc nhập, Mô tả nút, Hiển thị của trạng thái màn, hết phiên, luồng tích hợp, BR): mỗi ý một gạch đầu dòng `- `, các ý nối bằng `<br>`. Ý con (danh sách giá trị, các trường hợp, các bước) xuống dòng và bắt đầu bằng `&nbsp;&nbsp;+ `. Không viết nhiều ý liền nhau thành một đoạn. Ô chỉ một ý thì viết một câu.
 - Luồng dữ liệu viết dạng bảng `Bước | Mô tả hành động | Kết quả hệ thống thực hiện`. Logic rẽ nhánh phức tạp thì thêm Mermaid flowchart.
 - Ảnh nhúng bằng `![mô tả ngắn](_attachments/<tên file>.png)`.
+- Ảnh đặt ngay trong khu hoặc nhóm bảng mà nó minh họa, để người đọc nhìn ảnh và đọc mô tả liền nhau. Mục "Ảnh design/mockup" chỉ giữ ảnh toàn trang, không dồn ảnh các khu và các trường hợp về đầu tài liệu. Khối có nhiều trường hợp (nhiều trạng thái, nhiều vai trò) thì chia từng trường hợp một khối: tiêu đề, ảnh, rồi các dòng mô tả. Cần thu nhỏ ảnh thì dùng thẻ img có width.
 - Đã có thiết kế thì SRS không mô tả hình thức: bố cục (mấy hàng, góc nào, chia đều), màu, cỡ chữ, khoảng cách, kích thước khung. Dev xem ở thiết kế. SRS chỉ giữ nội dung và định dạng dữ liệu (chữ hiển thị, định dạng ngày giờ, số tiền, đếm ngược, cắt chữ), hành vi, điều kiện hiện ẩn, trạng thái và quy tắc. Quy tắc quy đổi sang hiển thị thì BR định nghĩa mức, bảng giao diện ghi "màu theo thiết kế". Ràng buộc người dùng đưa riêng (ví dụ mã màu thương hiệu) ghi một dòng ở mục Ràng buộc.
 
 ### 5b. Mỗi nội dung chỉ viết ở một chỗ
@@ -101,14 +103,16 @@
 | Thẻ số liệu, khu dữ liệu hiển thị gì | Tính trên phạm vi nào, chọn bản ghi nào, sắp xếp theo gì, khi nào thay đổi |
 | Nút bấm đi đâu, mở gì | Điều kiện được bấm, hệ quả lên dữ liệu và bản ghi khác |
 
-- Ở bảng giao diện, chỗ nào chạm logic của rule thì chỉ nói ngắn kết quả nhìn thấy, không kèm mã BR, không câu dẫn kiểu "(cách chọn: BR04)", không chép lại nội dung rule: "Đếm ngược tới hạn đăng ký, màu chữ đổi theo thời gian còn lại". Tên BR ghi rõ khu hoặc thành phần nó áp dụng để người đọc tự tìm. Mã BR chỉ xuất hiện ở bảng BR, use case và cột Liên kết của AC.
+- Ở bảng giao diện, chỗ nào chạm logic của rule thì chỉ nói ngắn kết quả nhìn thấy, không kèm mã BR, không câu dẫn kiểu "(cách chọn: BR04)", không chép lại nội dung rule: "Đếm ngược tới hạn đăng ký, màu chữ đổi theo thời gian còn lại". Tên BR ghi rõ khu hoặc thành phần nó áp dụng để người đọc tự tìm. Mã BR chỉ xuất hiện ở bảng BR và cột Liên kết của AC. Use case viết đủ nội dung bằng lời (điều kiện, giới hạn, chữ hiển thị, kết quả), không dẫn kiểu "theo BR09", "(BR19)" để người đọc không phải tra qua lại.
+- Mọi mục (mô tả, luồng, BR, AC, ô bảng) không dùng câu trỏ sang chỗ khác như "theo BR04b", "như nhóm A", "giống SCR01", "xem mục 5.1.3", vì người đọc không kéo lên xem được. Viết thẳng nội dung ra câu. Mã tham chiếu chỉ đặt ở cột Tham chiếu hoặc cột Mã liên quan.
 - Business Rule viết dạng quy tắc bắt buộc: "Phải", "Chỉ được phép", "Không được" (ngoại lệ của mục 3, chữ "không" được dùng trong BR khi đó là ràng buộc). Không kể lại luồng thao tác.
 - Business Rule chỉ giữ năm loại, ghi ở cột Loại: Chính sách, Dữ liệu (định nghĩa, nguồn, tiêu chí chọn), Ràng buộc, Tính toán, Logic. Quy tắc giao diện đưa lên bảng giao diện, quy tắc kỹ thuật (chịu lỗi, chống gửi trùng, hiệu năng) đưa sang Yêu cầu phi chức năng.
 - Business Rule không gọi tên thành phần giao diện (khu, tab, nút, màu, bố cục, hiệu ứng). Gọi theo loại dữ liệu để đổi giao diện thì BR không phải sửa. Quy đổi sang hiển thị thì BR định nghĩa mức (ví dụ mức cảnh báo Khẩn, Sắp hết hạn), bảng giao diện ghi màu của từng mức.
 - Câu thông báo viết ngay tại chỗ phát sinh, chỉ một lần.
 - Hai lỗi hay gặp: chép nguyên mô tả của bảng xuống thành rule; viết rule chỉ để khẳng định một thứ không có.
+- Quy tắc thay đổi theo lựa chọn của người dùng (giá trị bộ lọc, tab, trạng thái, loại bản ghi): tách mỗi lựa chọn thành một BR con (BR06, BR06a, BR06b…), tên BR ghi rõ lựa chọn đó, ví dụ "Thứ tự khi Trạng thái cuộc đấu là Sắp diễn ra". Không viết theo kiểu gộp: liệt kê chung một lần rồi thêm câu "lọc theo X thì giữ như trên", để người đọc phải tự suy ra. Người đọc tra theo đúng thứ họ thấy trên màn, nên mỗi lựa chọn phải đọc được ngay cách xử lý của nó. Phần dùng chung cho mọi lựa chọn (xếp khi trùng, ngoại lệ) tách thành một BR con riêng.
 - Sửa một quyết định thì rà đủ ba chỗ: bảng giao diện, Business Rules, AC.
-- Bỏ hoặc đánh lại số BR thì grep mã BR trên toàn file. Ngoài bảng BR, use case và cột Liên kết của AC, chỗ nào còn mã BR (ghi chú NFR, sơ đồ, luồng tích hợp, bảng giao diện) thì thay bằng câu nói thẳng nội dung.
+- Bỏ hoặc đánh lại số BR thì grep mã BR trên toàn file. Ngoài bảng BR và cột Liên kết của AC, chỗ nào còn mã BR (use case, ghi chú NFR, sơ đồ, luồng tích hợp, bảng giao diện) thì thay bằng câu nói thẳng nội dung.
 
 ## 6. Thành phần giao diện mới
 

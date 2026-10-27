@@ -140,3 +140,11 @@ Chế độ B (kiểm hệ thống khi chưa có testcase). Skill đọc các kh
 ## Ghi chú riêng của dự án
 
 - <Thuật ngữ, quy ước riêng cần nhớ khi viết>
+
+## Phân việc co-van
+
+| Khóa | Giá trị |
+|:---|:---|
+| Luồng lõi (luôn chốt hướng và review bằng co-van) | <các luồng chạm tiền, xác thực, phân quyền, trạng thái, tích hợp ngoài của dự án> |
+| Trọng tâm soi | <chỗ dự án này hay hở: ảnh hưởng chéo, phân quyền, hết phiên...> |
+| Nguồn đối chiếu | <tài liệu và hệ thống để co-van đối chiếu> |

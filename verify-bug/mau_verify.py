@@ -67,6 +67,8 @@ def mo(p, xem=False, kho=(1920, 1080), cham=500, trinh_duyet="chromium"):
         kw["channel"] = "chromium"
     b = getattr(p, trinh_duyet).launch(**kw)
     ctx = b.new_context(viewport={"width": kho[0], "height": kho[1]}, device_scale_factor=1, accept_downloads=True)
+    ctx.set_default_timeout(10000)  # buoc loi bao sau 10 giay, khong treo 30 giay mac dinh
+    ctx.set_default_navigation_timeout(30000)
     gan_canh_gac(ctx)
     page = ctx.new_page()
     # giu dai chu khi trang chuyen sang trang khac
@@ -218,7 +220,7 @@ _BO_CUC_JS = r"""
     return out; };
   const rong_chu = e => { const rs = khung_chu(e); if (!rs.length) return 0; return Math.max(...rs.map(r => r.right)) - Math.min(...rs.map(r => r.left)); };
   // 1. nut cung nhan hien 2 lan tren man (ngoai cac dong bang)
-  const nut = [...document.querySelectorAll(cfg.vung + ' button, ' + cfg.vung + ' a')].filter(hien).filter(b => !b.closest('[role=dialog]')).filter(b => { const tr = b.closest('tbody tr'); return !tr || tr.children.length <= 1; });
+  const nut = [...document.querySelectorAll(cfg.vung + ' button, ' + cfg.vung + ' a')].filter(hien).filter(b => !b.closest('[role=dialog]') && b.getAttribute('role') !== 'tab' && !b.closest('[role=tablist]')).filter(b => { const tr = b.closest('tbody tr'); return !tr || tr.children.length <= 1; });
   const dem = {}; nut.forEach(b => { const t = b.innerText.trim(); if (t) (dem[t] = dem[t] || []).push(b); });
   Object.entries(dem).filter(([t, ds]) => ds.length > 1).forEach(([t, ds]) => ra.push({loai: 'Trùng nút', chi_tiet: `"${t}" hiện ${ds.length} lần`,
     khung: ds.map(b => { const r = b.getBoundingClientRect(); return [r.x, r.y, r.right, r.bottom].map(Math.round); })}));
