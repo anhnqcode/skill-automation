@@ -1,7 +1,7 @@
 ---
 name: viet-srs
-description: Viết SRS mới cho một màn hoặc chức năng theo template dự án, tìm SRS cũ trước, đủ trạng thái màn, BR, UC, AC. Dùng khi gọi /viet-srs hoặc nhờ viết SRS.
-argument-hint: "<tên màn hình / chức năng> | <mô tả nghiệp vụ, nguồn: CR, thiết kế, BRD...>"
+description: Viết SRS mới cho một màn hoặc chức năng theo template dự án, tìm SRS cũ trước, đủ trạng thái màn, BR, UC, AC. Có chế độ renew UI cho màn đã có SRS làm lại giao diện, kể cả chuyển bản khi lên Production. Dùng khi gọi /viet-srs hoặc nhờ viết SRS.
+argument-hint: "<tên màn hình / chức năng> | <mô tả nghiệp vụ, nguồn: CR, thiết kế, BRD...> [| renew]"
 ---
 
 # Viết SRS: $ARGUMENTS
@@ -15,6 +15,7 @@ Trả lời người dùng bằng tiếng Việt, gọi người dùng theo các
 2. Đọc `<SKILL_BA>/_chung/van-phong.md`. Bắt buộc.
 3. Chọn file cấu hình dự án trong `<SKILL_BA>/_du-an/`. Không có thì hỏi và tạo theo `_du-an/_mau.md`.
 4. `$ARGUMENTS` trống hoặc chưa rõ chức năng thì hỏi.
+5. **Renew UI:** có `| renew`, hoặc màn đã có SRS và đang chạy nay làm lại giao diện, thì đọc thêm `che-do-renew.md` (cùng thư mục skill này) và làm theo. Báo đã build Production bản renew thì làm mục 6 của file đó.
 
 ## Bước 0b. Tư duy và phân tích
 

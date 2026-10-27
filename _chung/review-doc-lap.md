@@ -1,6 +1,6 @@
 # Review độc lập bằng agent riêng
 
-Người viết tự review thường bỏ sót lỗi của chính mình vì đã quen giả định lúc viết. Sau bước tự review, giao tài liệu cho **một agent mới** (công cụ Agent, loại `co-van`, chạy Opus, chế độ REVIEW) chỉ đọc tài liệu và nguồn, không biết quá trình viết, để soi lại.
+Người viết tự review thường bỏ sót lỗi của chính mình vì đã quen giả định lúc viết. Sau bước tự review, giao tài liệu cho **một agent mới** (công cụ Agent, loại `general-purpose`) chỉ đọc tài liệu và nguồn, không biết quá trình viết, để soi lại.
 
 ## Khi nào chạy
 
@@ -11,7 +11,7 @@ Người viết tự review thường bỏ sót lỗi của chính mình vì đ�
 | Testcase | Chạy khi bộ case có từ 30 case trở lên |
 | `/review-tai-lieu` | Đây là việc chính của skill đó |
 
-Tài liệu thường: một co-van làm cả hai góc. Tài liệu dài (FSD nhiều màn, SRS lớn): chạy song song 2 co-van, mỗi agent một góc nhìn: (A) Dev và Tester, (B) Nghiệp vụ, văn phong và đối chiếu nguồn. Cả hai đều chạy Opus.
+Tài liệu dài (FSD nhiều màn, SRS lớn) thì chạy song song 2 agent, mỗi agent một góc nhìn: (A) Dev và Tester, (B) Nghiệp vụ, văn phong và đối chiếu nguồn.
 
 ## Lời giao việc cho agent
 
@@ -22,9 +22,6 @@ Bạn là senior BA kiêm senior tester, review độc lập một tài liệu [
 Bạn chưa từng thấy tài liệu này. Chỉ đọc, không sửa file nào.
 
 Tài liệu cần review: [đường dẫn]
-Chế độ: REVIEW
-Cấu hình dự án: [đường dẫn _du-an/<dự án>.md]
-Bảng yêu cầu R và nguyên văn tin nhắn của người dùng: [đường dẫn .note.md hoặc "không có"]
 Nguồn để đối chiếu: [đường dẫn SRS cũ, CR liên quan, BRD, cây phân rã, thiết kế... hoặc "không có"]
 Đọc trước để biết chuẩn:
 - Template: [đường dẫn template]
@@ -44,7 +41,7 @@ Tìm:
 
 Trả về bảng markdown, xếp theo mức độ từ cao xuống thấp:
 | # | Mức độ (Cao / Trung bình / Thấp) | Vị trí (mục, dòng trích ngắn) | Vấn đề | Đề xuất sửa cụ thể | Loại (Lỗi rõ ràng / Cần BA quyết) |
-Có bảng R thì thêm cột "Yêu cầu liên quan". Chỉ ghi vấn đề có thật, kèm trích dẫn chỗ sai. Không khen, không tóm tắt tài liệu. Không có vấn đề ở nhóm nào thì bỏ qua nhóm đó.
+Chỉ ghi vấn đề có thật, kèm trích dẫn chỗ sai. Không khen, không tóm tắt tài liệu. Không có vấn đề ở nhóm nào thì bỏ qua nhóm đó.
 ```
 
 ## Xử lý kết quả

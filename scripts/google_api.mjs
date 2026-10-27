@@ -19,7 +19,6 @@
 //   sheet-batch <file> <requests.json>      Gửi lô yêu cầu batchUpdate của Sheets API (công thức, danh sách chọn, màu, định dạng)
 //   sheet-info <file>                       Id từng tab và các quy tắc định dạng có điều kiện, danh sách chọn đang có
 //   drive-list <thư mục>                    Liệt kê tệp trong thư mục Drive (id, tên, link xem). Thư mục phải chia sẻ cho service account
-//   drive-get <file> <đường dẫn ra>         Tải tệp thường trên Drive (ảnh, pdf...) về máy
 //   (thêm --nhap-nhu-tay để Google tự hiểu số, ngày, công thức như khi gõ tay. Mặc định ghi nguyên văn)
 //
 //   doc-read <file> [--json <đường dẫn>]    In nội dung Google Doc dạng chữ, mỗi đoạn một dòng có số thứ tự
@@ -173,15 +172,6 @@ const commands = {
     const mime = EXPORT[extname(dest || '').toLowerCase()];
     if (!mime) fail('Đuôi file ra phải là ' + Object.keys(EXPORT).join(', '));
     const buf = await api(`${DRIVE}/${fileId(f)}/export?mimeType=${encodeURIComponent(mime)}`, { raw: true });
-    mkdirSync(dirname(resolve(dest)), { recursive: true });
-    writeFileSync(dest, buf);
-    out('Đã tải: ' + resolve(dest));
-  },
-
-  async 'drive-get'() {
-    const [f, dest] = args;
-    if (!dest) fail('Cần đường dẫn ra');
-    const buf = await api(`${DRIVE}/${fileId(f)}?alt=media&supportsAllDrives=true`, { raw: true });
     mkdirSync(dirname(resolve(dest)), { recursive: true });
     writeFileSync(dest, buf);
     out('Đã tải: ' + resolve(dest));

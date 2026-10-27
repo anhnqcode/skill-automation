@@ -220,7 +220,7 @@ _BO_CUC_JS = r"""
     return out; };
   const rong_chu = e => { const rs = khung_chu(e); if (!rs.length) return 0; return Math.max(...rs.map(r => r.right)) - Math.min(...rs.map(r => r.left)); };
   // 1. nut cung nhan hien 2 lan tren man (ngoai cac dong bang)
-  const nut = [...document.querySelectorAll(cfg.vung + ' button, ' + cfg.vung + ' a')].filter(hien).filter(b => !b.closest('[role=dialog]') && b.getAttribute('role') !== 'tab' && !b.closest('[role=tablist]')).filter(b => { const tr = b.closest('tbody tr'); return !tr || tr.children.length <= 1; });
+  const nut = [...document.querySelectorAll(cfg.vung + ' button, ' + cfg.vung + ' a')].filter(hien).filter(b => !b.closest('[role=dialog]')).filter(b => { const tr = b.closest('tbody tr'); return !tr || tr.children.length <= 1; });
   const dem = {}; nut.forEach(b => { const t = b.innerText.trim(); if (t) (dem[t] = dem[t] || []).push(b); });
   Object.entries(dem).filter(([t, ds]) => ds.length > 1).forEach(([t, ds]) => ra.push({loai: 'Trùng nút', chi_tiet: `"${t}" hiện ${ds.length} lần`,
     khung: ds.map(b => { const r = b.getBoundingClientRect(); return [r.x, r.y, r.right, r.bottom].map(Math.round); })}));

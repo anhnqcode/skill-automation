@@ -6,7 +6,7 @@ Bộ skill Claude Code dùng cho công việc BA / QA. Mỗi skill là một quy
 
 | Lệnh | Việc làm |
 |:---|:---|
-| `/viet-srs` | Viết SRS mới cho một màn hoặc chức năng theo template dự án, tìm SRS cũ trước, đủ trạng thái màn, BR, UC, AC. Dùng khi gọi /viet-srs hoặc nhờ viết SRS. |
+| `/viet-srs` | Viết SRS mới cho một màn hoặc chức năng theo template dự án, tìm SRS cũ trước, đủ trạng thái màn, BR, UC, AC. Có chế độ renew UI cho màn đã có SRS làm lại giao diện, kể cả chuyển bản khi lên Production. Dùng khi gọi /viet-srs hoặc nhờ viết SRS. |
 | `/viet-automation` | Automation test theo hai chế độ. Chế độ A - đã có bộ testcase duyệt - lập .auto.md và viết script còn thiếu theo quy ước repo automation. Chế độ B - dev vừa code xong, chưa có testcase - dùng Playwright kiểm thẳng bản đã deploy, phủ rộng chứ không chỉ happy path - đối chiếu UI với design và FSD, validate, CRUD, biên, dữ liệu kỳ quặc, trạng thái lỗi, hết phiên, phân quyền, ảnh hưởng chéo - chụp lại mọi lỗi, xuất file kết quả, quay video luồng E2E có chú thích khi được yêu cầu, chuyển sang /log-bug. Dùng khi gọi /viet-automation, nhờ làm automation cho bộ testcase, hoặc nhờ dùng automation kiểm hệ thống dev vừa làm xong. |
 | `/viet-testcase` | Viết testcase manual cho SRS/FSD/CR theo checklist và template dự án, tự nhận mẫu bảng, phủ cả case ngoài SRS. Dùng khi gọi /viet-testcase hoặc nhờ viết testcase. |
 | `/log-bug` | Ghi bug vào file bug Google Sheet theo mẫu của team, kèm ảnh ghi chú và bảng REPORT, hoặc tạo issue Bug trên Jira khi dự án ghi bug trên Jira. Dùng khi gọi /log-bug hoặc nhờ ghi, log bug cho dev. |
