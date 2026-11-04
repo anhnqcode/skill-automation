@@ -22,6 +22,8 @@ Bạn là senior BA kiêm senior tester, review độc lập một tài liệu [
 Bạn chưa từng thấy tài liệu này. Chỉ đọc, không sửa file nào.
 
 Tài liệu cần review: [đường dẫn]
+Cấu hình dự án: [đường dẫn _du-an/<dự án>.md]
+Bảng yêu cầu R và nguyên văn tin nhắn của người dùng: [đường dẫn .note.md hoặc "không có"]
 Nguồn để đối chiếu: [đường dẫn SRS cũ, CR liên quan, BRD, cây phân rã, thiết kế... hoặc "không có"]
 Đọc trước để biết chuẩn:
 - Template: [đường dẫn template]
@@ -41,7 +43,7 @@ Tìm:
 
 Trả về bảng markdown, xếp theo mức độ từ cao xuống thấp:
 | # | Mức độ (Cao / Trung bình / Thấp) | Vị trí (mục, dòng trích ngắn) | Vấn đề | Đề xuất sửa cụ thể | Loại (Lỗi rõ ràng / Cần BA quyết) |
-Chỉ ghi vấn đề có thật, kèm trích dẫn chỗ sai. Không khen, không tóm tắt tài liệu. Không có vấn đề ở nhóm nào thì bỏ qua nhóm đó.
+Có bảng R thì thêm cột "Yêu cầu liên quan". Chỉ ghi vấn đề có thật, kèm trích dẫn chỗ sai. Không khen, không tóm tắt tài liệu. Không có vấn đề ở nhóm nào thì bỏ qua nhóm đó.
 ```
 
 ## Xử lý kết quả

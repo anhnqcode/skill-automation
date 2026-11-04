@@ -24,3 +24,18 @@ Get-ChildItem $root -Directory | Where-Object { Test-Path (Join-Path $_.FullName
     cmd /c mklink /J "$link" "$($_.FullName)" | Out-Null
     Write-Host "Đã cài /$($_.Name)"
 }
+
+# Agent riêng (thư mục _agents, nếu có): nối cứng (hard link) vào ~/.claude/agents,
+# sửa file ở đâu cũng là sửa cùng một file. Khác ổ đĩa thì chép, khi đó sửa trong _agents rồi chạy lại.
+$agentSrc = Join-Path $root "_agents"
+if (Test-Path $agentSrc) {
+    $agents = Join-Path $env:USERPROFILE ".claude\agents"
+    New-Item -ItemType Directory -Force $agents | Out-Null
+    Get-ChildItem $agentSrc -Filter *.md | ForEach-Object {
+        $dst = Join-Path $agents $_.Name
+        if (Test-Path $dst) { Remove-Item $dst -Force }
+        try { New-Item -ItemType HardLink -Path $dst -Target $_.FullName -ErrorAction Stop | Out-Null }
+        catch { Copy-Item $_.FullName $dst }
+        Write-Host "Đã cài agent $($_.BaseName)"
+    }
+}

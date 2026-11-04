@@ -71,6 +71,9 @@ Có repo automation thì làm luôn trong lượt này, không dừng ở trạn
 ## A4. Chạy và phân loại
 
 1. Chạy spec trên **Môi trường chạy** ở cấu hình, theo lệnh trong quy ước repo. Chạy lâu thì chạy nền.
+   - **Tốc độ:** số worker, trình duyệt và tài khoản cho từng worker theo mục Automation của cấu hình dự án. Chạy đúng spec vừa viết, không chạy cả bộ sau mỗi lần sửa. Chạy lại case đỏ bằng `--last-failed`. Chỉ bật `--headed` hoặc `--debug` khi cần xem.
+   - **Lặp sửa script:** thêm `--reporter=list --retries=0` để test đỏ báo ngay, không dựng báo cáo html/json và không chạy lại lần hai. Chỉ chạy đủ reporter khi cần đồng bộ lên sheet.
+   - **Không chạy song song** các spec dùng chung tài khoản hoặc cùng một dữ liệu thật (cùng phòng, cùng bản ghi): chúng đè dữ liệu hoặc đá phiên của nhau.
 2. Mỗi test đỏ phân loại một trong bốn: lỗi đã log / lỗi sản phẩm mới / thiếu dữ liệu môi trường / test viết sai (sửa test, chạy lại).
 3. Lỗi sản phẩm mới: tái hiện độc lập, chưa rõ là lỗi hay đúng nghiệp vụ thì hỏi người dùng trước khi log.
 4. Cập nhật cột Automation Status, Automation Link trong `.test.md` và trạng thái ở `.auto.md`.
