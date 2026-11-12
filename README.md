@@ -1,4 +1,4 @@
-# Skill BA (bản chia sẻ)
+# Skill BA 
 
 Bộ skill Claude Code dùng cho công việc BA / QA. Mỗi skill là một quy trình làm việc đóng gói sẵn: gọi `/tên-skill` trong Claude Code kèm mô tả ngắn là chạy.
 
@@ -69,4 +69,3 @@ Thứ tự đọc: `Testcase_Template.md` (nền, 37 mục) → các checklist �
 | `QA-Voice-Interaction-Checklist.md` | Checklist Kiểm thử Tương tác bằng Giọng nói |
 | `Template_Testcase_Advanced.md` | Checklist Nâng Cao — 7 Dạng Case Đặc Thù |
 
-- Gói này có nhắc tới skill chưa kèm theo: `/lam-task-jira`, `/ve-so-do-lan`. Bước đó làm tay hoặc xin thêm skill.
