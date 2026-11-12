@@ -145,6 +145,23 @@ Cách viết từng ô:
 - **Các bước:** đánh số, mỗi bước một thao tác, gọi đúng tên nút, tên field như trên giao diện. Xuống dòng bằng `<br>`.
 - **Kết quả mong muốn:** cụ thể, đo được: chữ thông báo nguyên văn, số bản ghi, trạng thái mới, bản ghi xuất hiện ở đâu. Lọc và xuất viết "đúng các bản ghi thỏa điều kiện, đủ và chỉ những bản ghi đó".
 
+## Bước 4b. Chia nhiều agent (khi phạm vi lớn)
+
+**Chia khi** phạm vi có từ 3 nhóm chức năng độc lập trở lên (màn, menu, section) hoặc dự kiến từ khoảng 60 case. Dưới mức đó làm một mạch trong phiên chính, vì chia ra thì tốn công giao việc hơn tiết kiệm được. Mỗi nhóm chỉ nạp phần checklist áp dụng cho nó nên context ngắn, ít bỏ sót hơn.
+
+**Phiên chính làm trước khi giao:** Bước 0 đến Bước 3 (phân tích, nạp file điều phối và mẫu bảng, bảng tham số, câu hỏi chặn). Chia phạm vi thành các nhóm không dính nhau. Với mỗi nhóm, lập danh sách mục checklist áp dụng theo bảng dấu hiệu ở Bước 1 (mục của `Testcase_Template`, nhóm của `QA-Business-Risk-Core`, mục của checklist riêng dự án).
+
+**Giao mỗi nhóm một agent** `thuc-thi` (máy không có thì dùng `general-purpose`), gửi cùng lúc trong một lượt. Lời giao việc gồm: đường dẫn SRS/FSD/CR kèm số dòng hoặc tiêu đề của nhóm, đường dẫn note (bảng tham số, câu hỏi chặn đã biết), mẫu bảng và thang ưu tiên đã chọn, quy tắc nâng mức ưu tiên của dự án, danh sách mục checklist áp dụng (đường dẫn kèm số mục, chỉ đọc đúng các mục đó), `van-phong.md`, và tên file ra riêng `<tên>.<nhóm>.part.md` đặt cạnh SRS. Agent không sửa file của nhóm khác.
+
+Agent làm: sinh case cho nhóm theo Bước 4, mã tạm `T<số nhóm>-<số thứ tự>`, case chưa chắc kết quả ghi "chờ chốt" kèm câu hỏi. Trả về: đường dẫn file part, số case theo mức ưu tiên và số case ngoài SRS, bảng "Đã nạp" (mục đã đọc, mục bỏ kèm lý do), bảng BR/AC của nhóm → mã tạm, câu hỏi chờ chốt và điểm SRS thiếu. Không kể lại quá trình.
+
+**Phần phiên chính giữ, không giao:**
+- Case xuyên nhóm: phân quyền giữa các vai trò, luồng nghiệp vụ xuyên màn hoặc module, đồng bộ dữ liệu giữa các nơi hiển thị (Testcase_Template mục 12, 27), chuỗi trạng thái đi qua nhiều nhóm.
+- Nhóm chạm luồng lõi của dự án (mục "Phân việc co-van" ở cấu hình dự án, như tiền, phân quyền, ký số) nếu cần đọc trọn checklist nghiệp vụ riêng, vì phần này không nạp theo dấu hiệu được.
+- Khung file, banner hai cấp, bảng tổng hợp ở đầu file.
+
+**Gộp:** ghép các file part vào một file theo khung, đánh số lại mã TC tuần tự theo mã chính thức (case cũ giữ mã cũ, thay mã tạm bằng một lượt thay thế), cộng bảng "Đã nạp" và bảng BR/AC → TC của các nhóm vào note, xóa file part. Sau đó làm Bước 5 như thường: BR/AC nào chưa có case thì phiên chính viết thêm, đo độ phủ trên cả bộ, không đo từng nhóm. Review độc lập (Bước kế tiếp) chạy một lần trên file đã gộp.
+
 ## Bước 5. Rà soát cuối
 
 1. Chạy bảng rà soát cuối của file điều phối (6 trạng thái màn hình, các câu hỏi rà soát).
