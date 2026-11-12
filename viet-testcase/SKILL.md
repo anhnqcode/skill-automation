@@ -157,7 +157,7 @@ Agent làm: sinh case cho nhóm theo Bước 4, mã tạm `T<số nhóm>-<số t
 
 **Phần phiên chính giữ, không giao:**
 - Case xuyên nhóm: phân quyền giữa các vai trò, luồng nghiệp vụ xuyên màn hoặc module, đồng bộ dữ liệu giữa các nơi hiển thị (Testcase_Template mục 12, 27), chuỗi trạng thái đi qua nhiều nhóm.
-- Nhóm chạm luồng lõi của dự án (mục "Phân việc co-van" ở cấu hình dự án, như tiền, phân quyền, ký số) nếu cần đọc trọn checklist nghiệp vụ riêng, vì phần này không nạp theo dấu hiệu được.
+- Nhóm chạm luồng lõi của dự án (các luồng chạm tiền, phân quyền, ký số mà cấu hình dự án liệt kê) nếu cần đọc trọn checklist nghiệp vụ riêng, vì phần này không nạp theo dấu hiệu được.
 - Khung file, banner hai cấp, bảng tổng hợp ở đầu file.
 
 **Gộp:** ghép các file part vào một file theo khung, đánh số lại mã TC tuần tự theo mã chính thức (case cũ giữ mã cũ, thay mã tạm bằng một lượt thay thế), cộng bảng "Đã nạp" và bảng BR/AC → TC của các nhóm vào note, xóa file part. Sau đó làm Bước 5 như thường: BR/AC nào chưa có case thì phiên chính viết thêm, đo độ phủ trên cả bộ, không đo từng nhóm. Review độc lập (Bước kế tiếp) chạy một lần trên file đã gộp.
