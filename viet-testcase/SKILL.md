@@ -39,7 +39,7 @@ Làm **đầu tiên**, trước khi đọc template hay viết: theo `<SKILL_BA>
    4. **Năng lực hoặc domain khớp dấu hiệu mà chưa có bộ** (danh mục mục 3 trạng thái chưa tách, hoặc mục 4): dừng và nhắc người dùng đúng mẫu ở mục 5 của danh mục, kèm độ phủ ước tính và 8 đến 10 rủi ro chính dự kiến. Người dùng chọn tạo bộ thì dựng bộ, review độc lập, chờ duyệt, thêm vào danh mục rồi mới sinh case. Chọn chạy tạm thì ghi khoảng trống vào note.
    5. Không có phần nào thiếu bộ: báo một dòng danh sách checklist đã bật rồi làm tiếp, không chờ duyệt.
 3. Đọc **Template testcase** (cấu hình, hoặc `<SKILL_BA>/_mau-chung/Testcase_Template.md`) theo mục "Nạp theo dấu hiệu của màn" ở cuối Bước 1: mục 1 và các mục lõi đọc trọn, mục còn lại theo dấu hiệu. Mọi quy tắc trong các mục đã đọc là bắt buộc: ngôn ngữ, cấu trúc nhóm 2 cấp, đặt tên control, các nhóm kiểm thử bắt buộc, quy tắc viết kết quả mong muốn, cách đọc bảng đặc tả field.
-4. Đọc các checklist được bật, theo đúng mục được bật. Luôn gồm `<SKILL_BA>/_mau-chung/checklist/QA-Business-Risk-Core-Checklist.md` (tầng 1). Bản ghi hiện ở từ hai portal, vai trò hoặc nơi xuất trở lên thì lập bảng đối chiếu theo Testcase_Template Mục 27.9.
+4. Đọc các checklist được bật, theo đúng mục được bật. Luôn gồm `<SKILL_BA>/_mau-chung/checklist/QA-Business-Risk-Core-Checklist.md` (tầng 1, nạp theo nhóm như mục cuối Bước 1). Bản ghi hiện ở từ hai portal, vai trò hoặc nơi xuất trở lên thì lập bảng đối chiếu theo Testcase_Template Mục 27.9.
 5. **Chọn mẫu bảng testcase**, xét theo thứ tự, gặp cái nào thì dùng cái đó:
    1. Khóa **Mẫu bảng testcase** trong cấu hình dự án.
    2. Dự án đã có file testcase (grep `*.test.md`, `*.testcase.md` trong thư mục dự án): đọc dòng tiêu đề bảng, cách đặt tên file, cách nhóm, thang ưu tiên của một file gần nhất và làm đúng như vậy. Lưu lại vào cấu hình dự án để lần sau khỏi dò.
@@ -49,7 +49,7 @@ Làm **đầu tiên**, trước khi đọc template hay viết: theo `<SKILL_BA>
 
 ### Nạp theo dấu hiệu của màn (áp dụng cho `Testcase_Template.md`)
 
-`Testcase_Template.md` dài (hơn 1.800 dòng), mỗi màn chỉ cần một phần. Đọc mục 1 và các mục lõi trọn vẹn, các mục còn lại chỉ đọc khi màn có dấu hiệu tương ứng. Cột "Bật gì" ở file điều phối ghi "Toàn bộ" nghĩa là mọi mục đủ điều kiện được dùng, mục nào đọc vẫn theo dấu hiệu của màn. Quy tắc này chỉ áp dụng cho `Testcase_Template.md`. Checklist nghiệp vụ riêng của dự án, `QA-Business-Risk-Core` và các file `QA-*` được bật vẫn đọc trọn theo mục đã bật.
+`Testcase_Template.md` dài (hơn 1.800 dòng), mỗi màn chỉ cần một phần. Đọc mục 1 và các mục lõi trọn vẹn, các mục còn lại chỉ đọc khi màn có dấu hiệu tương ứng. Cột "Bật gì" ở file điều phối ghi "Toàn bộ" nghĩa là mọi mục đủ điều kiện được dùng, mục nào đọc vẫn theo dấu hiệu của màn. Quy tắc theo mục này áp dụng cho `Testcase_Template.md`. `QA-Business-Risk-Core` nạp theo nhóm (xem bên dưới). Checklist nghiệp vụ riêng của dự án và các file `QA-*` được bật vẫn đọc trọn theo mục đã bật.
 
 **Luôn đọc trọn:** mục 1 (quy tắc chung), 6, 7, 8, 9, 15, 16, 22, 23, 24.
 
@@ -79,6 +79,15 @@ Làm **đầu tiên**, trước khi đọc template hay viết: theo `<SKILL_BA>
 | 37 | SRS có con số về thời gian phản hồi |
 
 Chống bỏ sót: mục nào bỏ thì ghi vào note một dòng "Bỏ mục N: không có <dấu hiệu>" để người duyệt soát được. Đang phân vân mục có áp dụng không thì đọc. Mục bỏ nhưng sang bước sinh case mới thấy cần thì đọc bổ sung lúc đó.
+
+**`QA-Business-Risk-Core-Checklist.md` nạp theo nhóm.** File có 17 nhóm, mỗi nhóm mở đầu bằng dòng "Dấu hiệu trong tài liệu". Cách nạp:
+
+1. Đọc phần đầu file (mục đích, Cách dùng, Năm nguyên tắc, Danh sách nhóm) và cuối file (Bảng nâng mức ưu tiên chung).
+2. Tìm các dòng dấu hiệu bằng Grep mẫu `Dấu hiệu trong tài liệu` (lấy kèm số dòng), so với SRS/FSD/CR đang làm.
+3. Nhóm nào có dấu hiệu khớp thì đọc trọn nhóm đó (từ tiêu đề nhóm tới tiêu đề nhóm kế). Nhóm không khớp thì bỏ.
+4. Ghi vào bảng "Đã nạp" của note: nhóm bật kèm dấu hiệu đã thấy, nhóm bỏ kèm lý do.
+
+Nhóm 3 (vòng đời trạng thái) và nhóm 12 (dữ liệu cá nhân, hiển thị theo vai trò) hay bị coi là không liên quan trong khi tài liệu chỉ nhắc ngầm. Màn có trạng thái bản ghi hoặc có nhiều vai trò thì luôn bật hai nhóm này, không cần chờ từ khóa.
 
 ### Nạp một lần mỗi phiên
 
