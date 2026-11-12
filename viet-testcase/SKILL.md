@@ -24,6 +24,13 @@ Làm **đầu tiên**, trước khi đọc template hay viết: theo `<SKILL_BA>
 
 ## Bước 1. Nạp checklist theo đúng thứ tự
 
+**Nguyên tắc: mỗi dự án có bộ checklist coverage riêng, case sinh ra phải bám bộ đó.** Bộ riêng (khóa **Bộ checklist riêng của dự án** ở cấu hình, thường gồm template testcase và checklist nghiệp vụ của dự án, đặt trong repo tài liệu của dự án) là nguồn chính. Bộ dùng chung ở `<SKILL_BA>/_mau-chung/checklist` chỉ bổ sung chỗ bộ riêng chưa nói tới. Hai bên lệch nhau thì theo bộ riêng.
+
+- Khóa này có giá trị: đọc **trọn từng file**, đi hết từng mục, không đọc lướt theo mục lục. Mỗi mục của bộ riêng phải được xét: sinh case, hoặc ghi vào note lý do không áp dụng cho chức năng đang làm.
+- Khóa này trống mà dự án đã có checklist (hỏi người dùng, hoặc tìm trong thư mục tài liệu theo tên `*Checklist*`, `*checklist*`): ghi đường dẫn vào cấu hình rồi dùng.
+- Dự án chưa có bộ riêng: chạy bộ dùng chung theo các bước dưới và báo người dùng "dự án chưa có bộ checklist riêng, đang chạy bộ chung". Dựng bộ riêng khi gặp domain chưa có bộ (Bước 1, mục 2.4 bên dưới).
+- Rà soát cuối (Bước 5) đo độ phủ theo bộ riêng trước, bộ chung sau.
+
 1. Đọc **File điều phối checklist** của dự án. File này quyết định thứ tự chạy, file nào bật, mục nào tắt, mẫu bảng, quy tắc nâng High. Làm đúng theo nó, không đảo thứ tự, không tự bật mục đã tắt.
 2. **Dự án chưa có file điều phối: tự nhận diện, không hỏi người dùng chọn checklist.**
    1. Đọc `<SKILL_BA>/_mau-chung/checklist/_danh-muc.md` (thư mục checklist theo khóa **Thư mục checklist dùng chung** ở cấu hình, để trống thì dùng thư mục này).
@@ -104,7 +111,7 @@ Cách viết từng ô:
 1. Chạy bảng rà soát cuối của file điều phối (6 trạng thái màn hình, các câu hỏi rà soát).
 2. Đối chiếu: liệt kê mọi BR/AC của SRS, đánh dấu mã TC phủ. BR/AC nào chưa có TC thì viết thêm. AC nào không sinh được case đo được thì ghi note là AC chưa đạt.
 3. Đếm số case theo mức ưu tiên, cập nhật bảng tổng hợp ở đầu file.
-4. **Đo độ phủ:** chấm bảng 19 nhóm ở mục 6 của `_danh-muc.md` cho chức năng này: nhóm không liên quan bỏ khỏi mẫu số, nhóm còn mỏng thì bổ sung case từ checklist tương ứng. Ghi bảng vào note. Dưới 95% thì ghi rõ nhóm nào thiếu, thiếu vì chưa có bộ (đã nhắc ở bước 1) hay vì tài liệu chưa đủ (câu hỏi chặn).
+4. **Đo độ phủ:** trước hết đối chiếu với **bộ checklist riêng của dự án** (nếu có): liệt kê từng mục của bộ, đánh dấu mã TC phủ hoặc lý do không áp dụng, mục nào trống thì viết thêm case. Ghi bảng này vào note. Sau đó chấm bảng 19 nhóm ở mục 6 của `_danh-muc.md` cho chức năng này: nhóm không liên quan bỏ khỏi mẫu số, nhóm còn mỏng thì bổ sung case từ checklist tương ứng. Ghi bảng vào note. Dưới 95% thì ghi rõ nhóm nào thiếu, thiếu vì chưa có bộ (đã nhắc ở bước 1) hay vì tài liệu chưa đủ (câu hỏi chặn).
 5. Rà văn phong theo mục 8 của `van-phong.md`.
 6. Định dạng đúng mẫu để công cụ đồng bộ đọc được (mã TC dạng `TC-<MÃ>-<số>`, nhóm theo tiêu đề `##` / `###`).
 

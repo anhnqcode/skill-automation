@@ -1,4 +1,4 @@
-# Skill SRS, Automation, Testcase, Log bug và Verify bug
+# Skill BA (bản chia sẻ)
 
 Bộ skill Claude Code dùng cho công việc BA / QA. Mỗi skill là một quy trình làm việc đóng gói sẵn: gọi `/tên-skill` trong Claude Code kèm mô tả ngắn là chạy.
 
@@ -7,10 +7,16 @@ Bộ skill Claude Code dùng cho công việc BA / QA. Mỗi skill là một quy
 | Lệnh | Việc làm |
 |:---|:---|
 | `/viet-srs` | Viết SRS mới cho một màn hoặc chức năng theo template dự án, tìm SRS cũ trước, đủ trạng thái màn, BR, UC, AC. Có chế độ renew UI cho màn đã có SRS làm lại giao diện, kể cả chuyển bản khi lên Production. Dùng khi gọi /viet-srs hoặc nhờ viết SRS. |
-| `/viet-automation` | Automation test theo hai chế độ. Chế độ A - đã có bộ testcase duyệt - lập .auto.md và viết script còn thiếu theo quy ước repo automation. Chế độ B - dev vừa code xong, chưa có testcase - dùng Playwright kiểm thẳng bản đã deploy, phủ rộng chứ không chỉ happy path - đối chiếu UI với design và FSD, validate, CRUD, biên, dữ liệu kỳ quặc, trạng thái lỗi, hết phiên, phân quyền, ảnh hưởng chéo - chụp lại mọi lỗi, xuất file kết quả, quay video luồng E2E có chú thích khi được yêu cầu, chuyển sang /log-bug. Dùng khi gọi /viet-automation, nhờ làm automation cho bộ testcase, hoặc nhờ dùng automation kiểm hệ thống dev vừa làm xong. |
 | `/viet-testcase` | Viết testcase manual cho SRS/FSD/CR theo checklist và template dự án, tự nhận mẫu bảng, phủ cả case ngoài SRS. Dùng khi gọi /viet-testcase hoặc nhờ viết testcase. |
+| `/viet-automation` | Automation test theo hai chế độ. Chế độ A - đã có bộ testcase duyệt - lập .auto.md và viết script còn thiếu theo quy ước repo automation. Chế độ B - dev vừa code xong, chưa có testcase - dùng Playwright kiểm thẳng bản đã deploy, phủ rộng chứ không chỉ happy path - đối chiếu UI với design và FSD, validate, CRUD, biên, dữ liệu kỳ quặc, trạng thái lỗi, hết phiên, phân quyền, ảnh hưởng chéo - chụp lại mọi lỗi, xuất file kết quả, quay video luồng E2E có chú thích khi được yêu cầu, chuyển sang /log-bug. Dùng khi gọi /viet-automation, nhờ làm automation cho bộ testcase, hoặc nhờ dùng automation kiểm hệ thống dev vừa làm xong. |
 | `/log-bug` | Ghi bug vào file bug Google Sheet theo mẫu của team, kèm ảnh ghi chú và bảng REPORT, hoặc tạo issue Bug trên Jira khi dự án ghi bug trên Jira. Dùng khi gọi /log-bug hoặc nhờ ghi, log bug cho dev. |
 | `/verify-bug` | Kiểm lại các bug dev báo đã sửa (Resolved) trên file bug Google Sheet hoặc trên Jira, kèm vài mục hồi quy liên quan, đo đạc cụ thể trên trang bằng Playwright, mặc định chạy ngầm, chỉ bật cửa sổ chạy chậm có dải chữ khi người dùng yêu cầu. Đạt thì chuyển Passed (Jira: Done), còn lỗi thì Reopen kèm ghi chú và ảnh (Jira: comment). Chuyển Closed sau khi build Production thành công. Dùng khi gọi /verify-bug hoặc nhờ verify, kiểm lại bug dev đã fix. |
+| `/viet-cr` | Viết Change Request theo template: đánh số theo tháng, đọc SRS cũ, thiết kế trước nếu có giao diện, tự review, kèm .note.md. Dùng khi gọi /viet-cr hoặc nhờ viết, phân tích CR. |
+| `/cap-nhat-srs` | Gộp CR đã duyệt vào các SRS bị ảnh hưởng, viết lại thành mô tả hệ thống hiện hành, thêm lịch sử thay đổi. Dùng khi gọi /cap-nhat-srs <mã CR> hoặc nhờ cập nhật SRS theo CR. |
+| `/viet-fsd` | Viết FSD theo cổng/module: quy định dùng chung, từng màn có User story và Pre/Post-condition, BR, AC, sơ đồ, xuất docx. Dùng khi gọi /viet-fsd hoặc nhờ viết FSD. |
+| `/viet-brd` | Viết BRD trình lãnh đạo: mục tiêu đo được, user stories, phân rã và luồng tổng thể, phạm vi, rủi ro, xuất docx. Dùng khi gọi /viet-brd hoặc nhờ viết BRD. |
+| `/review-tai-lieu` | Review độc lập một tài liệu BRD, FSD, SRS, CR hoặc bộ testcase (của mình hay người khác) bằng agent riêng theo checklist và văn phong, xuất báo cáo vấn đề xếp theo mức độ. Dùng khi gọi /review-tai-lieu hoặc nhờ review, soát tài liệu. |
+| `/truy-vet` | Lập ma trận truy vết User story → phân rã → BR/AC → testcase → bug, báo chỗ hở (yêu cầu chưa có testcase, mã sai, chức năng chưa có đặc tả) và phạm vi cần test lại khi có CR. Dùng khi gọi /truy-vet hoặc nhờ kiểm tra độ phủ, truy vết. |
 
 ## Cài đặt
 
@@ -63,4 +69,4 @@ Thứ tự đọc: `Testcase_Template.md` (nền, 37 mục) → các checklist �
 | `QA-Voice-Interaction-Checklist.md` | Checklist Kiểm thử Tương tác bằng Giọng nói |
 | `Template_Testcase_Advanced.md` | Checklist Nâng Cao — 7 Dạng Case Đặc Thù |
 
-- Gói này có nhắc tới skill chưa kèm theo: `/cap-nhat-srs`, `/lam-task-jira`, `/ve-so-do-lan`, `/viet-cr`. Bước đó làm tay hoặc xin thêm skill.
+- Gói này có nhắc tới skill chưa kèm theo: `/lam-task-jira`, `/ve-so-do-lan`. Bước đó làm tay hoặc xin thêm skill.

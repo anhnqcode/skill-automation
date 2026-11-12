@@ -38,6 +38,7 @@ Chạy đúng thứ tự. Đảo thứ tự thì bộ case vẫn đủ số lư�
 
 | File | Bật khi | Bật gì | Ghi chú của dự án |
 |---|---|---|---|
+| `<Checklist nghiệp vụ riêng của dự án>.md` | Dự án có bộ riêng (ghi ở khóa **Bộ checklist riêng của dự án**) | Toàn bộ | Nguồn chính, đọc trọn từng mục. Các file dùng chung bên dưới chỉ bổ sung. Dự án chưa có thì xóa dòng này |
 | `Testcase_Template.md` | Luôn bật | Toàn bộ | Nền tảng, không có ngoại lệ |
 | `QA-Business-Risk-Core-Checklist.md` | Luôn bật | Các nhóm khớp dấu hiệu | Tầng 1, rủi ro nghiệp vụ chung |
 | `QA-States-Errors-Notification-Checklist.md` | Luôn bật | Toàn bộ | Sáu trạng thái màn hình, bảng lỗi, thông báo đa kênh |

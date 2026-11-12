@@ -86,7 +86,7 @@
 
 - Bảng có alignment marker (`:---`, `:---:`), tiêu đề cột viết hoa chữ đầu.
 - Bảng field: độ dài ghi ở cột **Loại**, đủ cả min và max: `Textbox (1–100 ký tự)`. Field bắt buộc min = 1, không bắt buộc min = 0. Cột Quy tắc nhập không lặp lại con số độ dài.
-- Ô bảng nào có từ 2 ý trở lên (Quy tắc nhập, Mô tả nút, Hiển thị của trạng thái màn, hết phiên, luồng tích hợp, BR): mỗi ý một gạch đầu dòng `- `, các ý nối bằng `<br>`. Ý con (danh sách giá trị, các trường hợp, các bước) xuống dòng và bắt đầu bằng `&nbsp;&nbsp;+ `. Không viết nhiều ý liền nhau thành một đoạn. Ô chỉ một ý thì viết một câu.
+- Ô bảng nào có từ 2 ý trở lên (Quy tắc nhập, Mô tả nút, Hiển thị của trạng thái màn, hết phiên, luồng tích hợp, BR): mỗi ý một gạch đầu dòng `- `, các ý nối bằng `<br>`. Ý con (danh sách giá trị, các trường hợp, các bước) xuống dòng và bắt đầu bằng `&nbsp;&nbsp;+ `. Không viết nhiều ý liền nhau thành một đoạn. Ô chỉ một ý thì viết một câu. Áp cho **mọi bảng** của mọi tài liệu (bảng trường, bảng nút, bảng thành phần, bảng Tài liệu bị ảnh hưởng, bảng Ảnh hưởng kỹ thuật, bảng phạm vi, bảng sự kiện), không chỉ bảng BR. Ô Quy tắc nhập có nhiều câu báo lỗi: mỗi điều kiện và chữ báo lỗi của nó một gạch đầu dòng. Ô nút có nhiều bước (kiểm tra, lưu, đóng, thông báo): mỗi bước một gạch đầu dòng.
 - Luồng dữ liệu viết dạng bảng `Bước | Mô tả hành động | Kết quả hệ thống thực hiện`. Logic rẽ nhánh phức tạp thì thêm Mermaid flowchart.
 - Ảnh nhúng bằng `![mô tả ngắn](_attachments/<tên file>.png)`.
 - Ảnh đặt ngay trong khu hoặc nhóm bảng mà nó minh họa, để người đọc nhìn ảnh và đọc mô tả liền nhau. Mục "Ảnh design/mockup" chỉ giữ ảnh toàn trang, không dồn ảnh các khu và các trường hợp về đầu tài liệu. Khối có nhiều trường hợp (nhiều trạng thái, nhiều vai trò) thì chia từng trường hợp một khối: tiêu đề, ảnh, rồi các dòng mô tả. Cần thu nhỏ ảnh thì dùng thẻ img có width.
@@ -135,3 +135,4 @@
 - Grep chữ "không" và rà từng chỗ theo mục 3.
 - Grep các từ ở bảng mục 1 và dấu "—" trong câu.
 - Grep dấu backtick trong phần nghiệp vụ theo mục 2.
+- Rà riêng ô bảng nhiều ý: mỗi dòng bảng có từ 2 câu trở lên trong cùng một ô phải gạch đầu dòng nối bằng <br> (mục 5). Tìm bằng cách xem các ô dài, có dấu chấm giữa câu.
