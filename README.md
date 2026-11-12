@@ -46,9 +46,9 @@ Bộ skill Claude Code dùng cho công việc BA / QA. Mỗi skill là một quy
 
 Thư mục `_mau-chung/checklist/` có các checklist dùng chung. Mỗi dự án bật những file phù hợp qua **file điều phối**:
 
-1. Copy `_mau-chung/00-checklist-ap-dung_mau.md` vào thư mục testcase của dự án, đổi tên thành `00-checklist-ap-dung.md`.
+1. Copy `_mau-chung/00-checklist-ap-dung_mau.md` vào thư mục chứa checklist của dự án (ví dụ `docs/templates`), đổi tên thành `00-checklist-ap-dung.md`. Chỉ copy file này, không copy các file checklist.
 2. Điền bối cảnh, bật tắt checklist theo cột "Bật khi", ghi quy tắc riêng và mẫu bảng.
-3. Ghi đường dẫn file này vào khóa **File điều phối checklist** của `_du-an/<dự án>.md`. Hoặc gọi `/viet-testcase` khi chưa có file điều phối, skill sẽ hỏi rồi tạo.
+3. Ghi đường dẫn file này vào khóa **File điều phối checklist** của `_du-an/<dự án>.md`, và đường dẫn các checklist riêng của dự án (nếu có) vào khóa **Bộ checklist riêng của dự án**. Skill đọc trọn bộ riêng và sinh case bám theo, bộ dùng chung chỉ bổ sung. Hoặc gọi `/viet-testcase` khi chưa có file điều phối, skill sẽ hỏi rồi tạo.
 
 Thứ tự đọc: `Testcase_Template.md` (nền, 37 mục) → các checklist được bật → `viet-testcase/tu-duy-test.md` (tìm case ngoài tài liệu).
 
