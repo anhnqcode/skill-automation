@@ -26,7 +26,7 @@ Làm **đầu tiên**, trước khi đọc template hay viết: theo `<SKILL_BA>
 
 **Nguyên tắc: mỗi dự án có bộ checklist coverage riêng, case sinh ra phải bám bộ đó.** Bộ riêng (khóa **Bộ checklist riêng của dự án** ở cấu hình, thường gồm template testcase và checklist nghiệp vụ của dự án, đặt trong repo tài liệu của dự án) là nguồn chính. Bộ dùng chung ở `<SKILL_BA>/_mau-chung/checklist` chỉ bổ sung chỗ bộ riêng chưa nói tới. Hai bên lệch nhau thì theo bộ riêng.
 
-- Khóa này có giá trị: đọc **trọn từng file**, đi hết từng mục, không đọc lướt theo mục lục. Mỗi mục của bộ riêng phải được xét: sinh case, hoặc ghi vào note lý do không áp dụng cho chức năng đang làm.
+- Khóa này có giá trị: đọc **trọn từng file**, đi hết từng mục, không đọc lướt theo mục lục. Ngoại lệ là `Testcase_Template.md`, nạp theo dấu hiệu của màn (xem mục "Nạp theo dấu hiệu của màn" ở cuối Bước 1). Mỗi mục của bộ riêng phải được xét: sinh case, hoặc ghi vào note lý do không áp dụng cho chức năng đang làm.
 - Khóa này trống mà dự án đã có checklist (hỏi người dùng, hoặc tìm trong thư mục tài liệu theo tên `*Checklist*`, `*checklist*`): ghi đường dẫn vào cấu hình rồi dùng.
 - Dự án chưa có bộ riêng: chạy bộ dùng chung theo các bước dưới và báo người dùng "dự án chưa có bộ checklist riêng, đang chạy bộ chung". Dựng bộ riêng khi gặp domain chưa có bộ (Bước 1, mục 2.4 bên dưới).
 - Rà soát cuối (Bước 5) đo độ phủ theo bộ riêng trước, bộ chung sau.
@@ -38,7 +38,7 @@ Làm **đầu tiên**, trước khi đọc template hay viết: theo `<SKILL_BA>
    3. Tự tạo file điều phối theo khóa **File điều phối mẫu** ở cấu hình, không có thì theo `<SKILL_BA>/_mau-chung/00-checklist-ap-dung_mau.md`. Mỗi dòng bật ghi kèm dấu hiệu đã thấy trong tài liệu.
    4. **Năng lực hoặc domain khớp dấu hiệu mà chưa có bộ** (danh mục mục 3 trạng thái chưa tách, hoặc mục 4): dừng và nhắc người dùng đúng mẫu ở mục 5 của danh mục, kèm độ phủ ước tính và 8 đến 10 rủi ro chính dự kiến. Người dùng chọn tạo bộ thì dựng bộ, review độc lập, chờ duyệt, thêm vào danh mục rồi mới sinh case. Chọn chạy tạm thì ghi khoảng trống vào note.
    5. Không có phần nào thiếu bộ: báo một dòng danh sách checklist đã bật rồi làm tiếp, không chờ duyệt.
-3. Đọc **Template testcase** trọn vẹn (cấu hình, hoặc `<SKILL_BA>/_mau-chung/Testcase_Template.md`). Mọi quy tắc trong đó là bắt buộc: ngôn ngữ, cấu trúc nhóm 2 cấp, đặt tên control, các nhóm kiểm thử bắt buộc, quy tắc viết kết quả mong muốn, cách đọc bảng đặc tả field.
+3. Đọc **Template testcase** (cấu hình, hoặc `<SKILL_BA>/_mau-chung/Testcase_Template.md`) theo mục "Nạp theo dấu hiệu của màn" ở cuối Bước 1: mục 1 và các mục lõi đọc trọn, mục còn lại theo dấu hiệu. Mọi quy tắc trong các mục đã đọc là bắt buộc: ngôn ngữ, cấu trúc nhóm 2 cấp, đặt tên control, các nhóm kiểm thử bắt buộc, quy tắc viết kết quả mong muốn, cách đọc bảng đặc tả field.
 4. Đọc các checklist được bật, theo đúng mục được bật. Luôn gồm `<SKILL_BA>/_mau-chung/checklist/QA-Business-Risk-Core-Checklist.md` (tầng 1). Bản ghi hiện ở từ hai portal, vai trò hoặc nơi xuất trở lên thì lập bảng đối chiếu theo Testcase_Template Mục 27.9.
 5. **Chọn mẫu bảng testcase**, xét theo thứ tự, gặp cái nào thì dùng cái đó:
    1. Khóa **Mẫu bảng testcase** trong cấu hình dự án.
@@ -46,6 +46,45 @@ Làm **đầu tiên**, trước khi đọc template hay viết: theo `<SKILL_BA>
    3. Chưa có gì: dùng `<SKILL_BA>/_mau-chung/Testcase_Mau-bang-mac-dinh.md` (mẫu mặc định: 10 cột, P0/P1/P2, có Mã SRS và Mã UC - TKCT, không có cột Automation).
 
    Báo người dùng một dòng đang dùng mẫu nào. Template testcase hay checklist dùng chung có mẫu bảng khác thì vẫn theo mẫu vừa chọn, chỉ quy đổi thang ưu tiên cho khớp (P0 ↔ High, P1 ↔ Medium, P2 ↔ Low).
+
+### Nạp theo dấu hiệu của màn (áp dụng cho `Testcase_Template.md`)
+
+`Testcase_Template.md` dài (hơn 1.800 dòng), mỗi màn chỉ cần một phần. Đọc mục 1 và các mục lõi trọn vẹn, các mục còn lại chỉ đọc khi màn có dấu hiệu tương ứng. Cột "Bật gì" ở file điều phối ghi "Toàn bộ" nghĩa là mọi mục đủ điều kiện được dùng, mục nào đọc vẫn theo dấu hiệu của màn. Quy tắc này chỉ áp dụng cho `Testcase_Template.md`. Checklist nghiệp vụ riêng của dự án, `QA-Business-Risk-Core` và các file `QA-*` được bật vẫn đọc trọn theo mục đã bật.
+
+**Luôn đọc trọn:** mục 1 (quy tắc chung), 6, 7, 8, 9, 15, 16, 22, 23, 24.
+
+**Đọc khi màn có dấu hiệu:**
+
+| Mục | Đọc khi màn hoặc CR có |
+|:---|:---|
+| 2 | Form Thêm mới hoặc Chỉnh sửa |
+| 3 | Trường hoặc tổ hợp trường phải duy nhất |
+| 4, 34 | Danh sách có lọc, tìm kiếm, phân trang, sắp xếp, thao tác hàng loạt |
+| 5 | Có field nhập liệu. Chỉ đọc tiểu mục của loại control có trong màn (5.1 ô nhập, 5.2 số, 5.3 ngày, 5.4 danh sách chọn, 5.5 hộp kiểm, 5.6 nút chọn đơn, 5.7 nhiều dòng, 5.8 tra cứu, 5.9 tải tệp, 5.10 cây) |
+| 10 | Chức năng xóa |
+| 11 | Chế độ CR, hoặc sửa màn đã có |
+| 12, 27 | Bản ghi hiện ở từ hai nơi, portal, vai trò trở lên, hoặc luồng đi qua nhiều module |
+| 13 | Bật/tắt (enable/disable, kích hoạt/ngưng) |
+| 14 | Cấu hình hệ thống |
+| 17, 33 | Dự án có yêu cầu bàn phím, trợ năng |
+| 18 | Có thông báo chuông, email, SMS, push |
+| 19, 20 | Xuất, in, nhập hoặc xuất hàng loạt |
+| 21 | Có bản mobile hoặc nhiều khổ màn |
+| 25, 26 | Bản ghi có trạng thái, hoặc có hủy, hoàn, khôi phục |
+| 28 | Mốc thời gian, tác vụ theo lịch, hết hạn |
+| 29, 30 | Đăng nhập, phiên, hoặc có ô nhập liệu và dữ liệu nhạy cảm |
+| 31, 32 | Biểu mẫu, ngày giờ, số tiền, định dạng chuẩn |
+| 35 | Tải tệp lên |
+| 36 | Dữ liệu tạo trước khi đổi quy tắc, hoặc quy tắc nhiều điều kiện |
+| 37 | SRS có con số về thời gian phản hồi |
+
+Chống bỏ sót: mục nào bỏ thì ghi vào note một dòng "Bỏ mục N: không có <dấu hiệu>" để người duyệt soát được. Đang phân vân mục có áp dụng không thì đọc. Mục bỏ nhưng sang bước sinh case mới thấy cần thì đọc bổ sung lúc đó.
+
+### Nạp một lần mỗi phiên
+
+- Đã nạp checklist trong phiên này (cùng dự án) thì không đọc lại file đó. Màn tiếp theo chỉ đọc thêm mục có dấu hiệu mà các màn trước chưa đọc.
+- Ghi vào note bảng "Đã nạp": file, các mục đã đọc, các mục đã bỏ kèm lý do. Sau khi nén phiên (`/compact`) hoặc mở phiên mới, đọc bảng này để biết cần đọc lại phần nào, không nạp lại từ đầu.
+- Giao việc cho agent khác thì chỉ đưa danh sách mục áp dụng cho phần của nó, không bắt đọc cả file.
 
 ## Chế độ CR (đầu vào là một CR đã duyệt)
 
